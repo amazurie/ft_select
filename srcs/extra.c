@@ -12,6 +12,27 @@
 
 #include "ft_select.h"
 
+int		check_winsize(t_arg *arg, char **buff, int *whcl)
+{
+	t_arg	*tmp;
+	int		i;
+
+	tmp = arg;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (whcl[3] * whcl[4] < i || whcl[1] < whcl[4]
+			|| whcl[0] < whcl[3] * whcl[2])
+	{
+		buffcat(buff, "Windows size too small, please increase size");
+		return (0);
+	}
+	return (1);
+}
+
 int		tty_fd(void)
 {
 	static int	ttyfd = -1;

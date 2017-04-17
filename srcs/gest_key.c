@@ -32,7 +32,7 @@ static void	right_arrow(t_data **d)
 	if ((*d)->num_curr + l > (*d)->ac)
 	{
 		(*d)->num_curr = (*d)->num_curr + l - c * l + 1;
-		if ((*d)->num_curr < 0)
+		while ((*d)->num_curr < 0)
 			(*d)->num_curr += l;
 		if ((*d)->num_curr > (*d)->ac || (*d)->num_curr < 0)
 			(*d)->num_curr = (*d)->ac;

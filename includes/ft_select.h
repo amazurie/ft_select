@@ -60,5 +60,6 @@ size_t				print_buff(char **buff);
 size_t				buffcat(char **buff, char *s);
 int					nbrline(t_arg *arg, int w, int *len);
 int					nbr_col(t_arg *arg, int w, int *nbrline);
+int					check_winsize(t_arg *arg, char **buff, int *whcl);
 
 #endif

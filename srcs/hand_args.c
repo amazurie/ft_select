@@ -52,14 +52,9 @@ int		nbrline(t_arg *arg, int w, int *len)
 		tmp = tmp->next;
 		i++;
 	}
-	if (w && i * *len > w)
+	if (w)
 		return (w / *len - (w % *len == 0));
-	if (!w)
-	{
-		*len = 0;
-		return (1);
-	}
-	return (i);
+	return (0);
 }
 
 int		nbr_col(t_arg *arg, int w, int *nline)
@@ -82,6 +77,9 @@ int		nbr_col(t_arg *arg, int w, int *nline)
 
 void		disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 {
+	int		i;
+
+	i = 0;
 	whcl[0] = 0;
 	whcl[1] = 0;
 	while (ar)
@@ -94,16 +92,18 @@ void		disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 		buffcat(buff, ar->elem);
 		buffcat(buff, tgetstr("me", NULL));
 		whcl[1]++;
-		if (whcl[1] == whcl[3])
+		if (whcl[1] == whcl[4])
 			whcl[0]++;
-		if (whcl[1] == whcl[3])
+		if (whcl[1] == whcl[4])
 			whcl[1] = 0;
 		ar = ar->next;
+		i++;
 	}
 }
 
 void		display_args(t_data *d)
 {
+	struct winsize w;
 	t_data			*save_d;
 	char			*buff;
 	int				*whcl;
@@ -114,15 +114,17 @@ void		display_args(t_data *d)
 	if (!save_d)
 		return ;
 	buff = (char *)ft_memalloc(BUFFER_SIZE + 1);
-	whcl = (int *)ft_memalloc(sizeof(int) * 5);
+	whcl = (int *)ft_memalloc(sizeof(int) * 6);
 	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
 	buffcat(&buff, tgetstr("cd", NULL));
-	whcl[0] = tgetnum("co");
-	whcl[1] = tgetnum("li");
+	ioctl(0, TIOCGWINSZ, &w);
+	whcl[0] = w.ws_col;
+	whcl[1] = w.ws_row;
 	whcl[3] = nbrline(save_d->args, whcl[0], &whcl[2]);
-	whcl[3] = nbr_col(save_d->args, whcl[0], &whcl[3]);
-	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
-	write(tty_fd(), buff, ft_strlen(buff));
+	whcl[4] = nbr_col(save_d->args, whcl[0], &whcl[3]);
+	if (check_winsize(save_d->args, &buff, whcl))
+		disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
+	ft_putstr_fd(buff, tty_fd());
 	free(buff);
 	free(whcl);
 }

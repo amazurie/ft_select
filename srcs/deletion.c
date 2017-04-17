@@ -18,8 +18,24 @@ void	reset_num(t_data **d)
 	(*d)->ac = i - 1;
 }
 
-static void	del_arg(t_arg *arg, t_arg *tmp)
+static void	del_arg(t_data **d, t_arg **arg, t_arg **tmp)
 {
+	if (!(*tmp))
+	{
+		(*tmp) = (*arg);
+		(*arg) = (*arg)->next;
+		(*d)->args = (*arg);
+		free((*tmp)->elem);
+		free((*tmp));
+		(*tmp) = NULL;
+	}
+	else
+	{
+		(*tmp)->next = (*arg)->next;
+		free((*arg)->elem);
+		free((*arg));
+		(*arg) = (*tmp)->next;
+	}
 }
 
 void		do_del(t_data **d)
@@ -32,24 +48,7 @@ void		do_del(t_data **d)
 	while (arg)
 	{
 		if (arg->is_select)
-		{
-			if (!tmp)
-			{
-				tmp = arg;
-				arg = arg->next;
-				(*d)->args = arg;
-				free(tmp->elem);
-				free(tmp);
-				tmp = NULL;
-			}
-			else
-			{
-				tmp->next = arg->next;
-				free(arg->elem);
-				free(arg);
-				arg = tmp->next;
-			}
-		}
+			del_arg(d, &arg, &tmp);
 		else
 		{
 			tmp = arg;
