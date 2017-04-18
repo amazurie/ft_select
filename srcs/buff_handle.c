@@ -17,7 +17,7 @@ size_t	print_buff(char **buff)
 	size_t len;
 
 	len = ft_strlen(*buff);
-	ft_putstr_fd(*buff, tty_fd());
+	ft_putstr_fd(*buff, tty_fd(0));
 	ft_bzero(*buff, len);
 	return (len);
 }
@@ -37,7 +37,7 @@ size_t	buffcat(char **buff, char *s)
 	else
 	{
 		len = print_buff(buff) + ft_strlen(s);
-		ft_putstr_fd(s, tty_fd());
+		ft_putstr_fd(s, tty_fd(0));
 	}
 	return (len);
 }

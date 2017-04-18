@@ -47,19 +47,21 @@ typedef struct		s_data
 }					t_data;
 
 t_arg				*char_to_lst(char **args);
+void				user_hand(t_data **d);
 void				display_args(t_data *d);
 int					gest_arrow(t_data **d, char *tmp);
 void				do_space(t_data **d);
 void				do_del(t_data **d);
-int					tty_fd(void);
+int					tty_fd(int i);
 void				print_error(char *str);
 void				disp_error(char *str);
 t_data				*get_data(t_data *d);
 void				reset_term(t_data *d);
 size_t				print_buff(char **buff);
 size_t				buffcat(char **buff, char *s);
+void				print_args(t_data *d);
 int					nbrline(t_arg *arg, int w, int *len);
-int					nbr_col(t_arg *arg, int w, int *nbrline);
+int					nbr_col(t_arg *arg, int *nbrline);
 int					check_winsize(t_arg *arg, char **buff, int *whcl);
 
 #endif

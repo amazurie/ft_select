@@ -2,13 +2,15 @@
 
 static void	left_arrow(t_data **d)
 {
+	struct winsize	ws;
 	int	w;
 	int	c;
 	int	l;
 
-	w = tgetnum("co");
+	ioctl(tty_fd(0), TIOCGWINSZ, &ws);
+	w = ws.ws_col;
 	c = nbrline((*d)->args, w, &l);
-	l = nbr_col((*d)->args, w, &c);
+	l = nbr_col((*d)->args, &c);
 	if ((*d)->num_curr - l < 0)
 	{
 		if (c * l - l + (*d)->num_curr - 1 > (*d)->ac)
@@ -22,13 +24,15 @@ static void	left_arrow(t_data **d)
 
 static void	right_arrow(t_data **d)
 {
+	struct winsize	ws;
 	int	w;
 	int	c;
 	int	l;
 
-	w = tgetnum("co");
+	ioctl(tty_fd(0), TIOCGWINSZ, &ws);
+	w = ws.ws_col;
 	c = nbrline((*d)->args, w, &l);
-	l = nbr_col((*d)->args, w, &c);
+	l = nbr_col((*d)->args, &c);
 	if ((*d)->num_curr + l > (*d)->ac)
 	{
 		(*d)->num_curr = (*d)->num_curr + l - c * l + 1;

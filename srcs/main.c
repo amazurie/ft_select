@@ -12,69 +12,47 @@
 
 #include "ft_select.h"
 
-void		sighandler(int sig)
-{
-	if (sig == SIGINT || sig == SIGTSTP || sig == SIGINT
-		|| sig == SIGINT || sig == SIGHUP || sig == SIGTERM
-		|| sig == SIGSEGV || sig == SIGQUIT || sig == SIGFPE
-		|| sig == SIGALRM || sig == SIGKILL || sig == SIGABRT
-		|| sig == SIGUSR1 || sig == SIGUSR2)
-	{
-		reset_term(get_data(NULL));
-		exit(1);
-	}
-	else if (sig == SIGCONT)
-		;
-}
-
-void		winsize_changed(int sig)
+static void		winsize_changed(int sig)
 {
 	display_args(NULL);
 }
 
-int		in(t_data **d, char *tmp)
+static void	do_pause(int sig)
 {
-	if (tmp[0] == 27 && !tmp[1])
-		return (0);
-	else if (tmp[0] == 32 && !tmp[1])
-		do_space(d);
-	else if ((tmp[0] == 127 && !tmp[1])
-		|| (tmp[0] == 27 && tmp[1] == 91
-		&& tmp[2] == 51 && tmp[3] == 126))
-		do_del(d);
-	else if (tmp[0] == 27 && tmp[1] == 91)
-		return (gest_arrow(d, tmp));
-	else
-		return (1);
-	return (2);
+	t_data	*d;
+	char	io[2];
+
+	sig = 0;
+	d = get_data(NULL);
+	reset_term(d);
+	signal(SIGTSTP, SIG_DFL);
+	io[0] = d->term.c_cc[VSUSP];
+	io[1] = 0;
+	ioctl(0, TIOCSTI, io);
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), tty_fd(0));
+	ft_putstr_fd(tgetstr("cd", NULL), tty_fd(0));
 }
 
-static void	user_hand(t_data **d)
+static void	do_restart(int sig)
 {
-	char	*tmp;
-	int		i;
+	t_data	*d;
 
-	ft_putstr_fd(tgetstr("ti", NULL), tty_fd());
-	write(tty_fd(), tgetstr("vi", NULL), 6);
-	tmp = (char *)ft_memalloc(7);
-	i = 2;
-	while (i)
-	{
-		if (i == 2)
-			display_args(*d);
-		read(0, tmp, 6);
-//		i = 0;
-//		while (tmp[i])
-//			printf("%i\n", tmp[i++]);
-		i = in(d, tmp);
-		get_data(*d);
-		ft_bzero(tmp, 6);
-		if (!(*d)->args)
-			i = 0;
-	}
+	d = get_data(NULL);
+	signal(SIGTSTP, &do_pause);
+	signal(SIGCONT, &do_restart);
+	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
+		print_error(NULL);
+	winsize_changed(0);
+	user_hand(&d);
 }
 
-int			main(int ac, char **av)
+static void	sighandler(int sig)
+{
+	reset_term(get_data(NULL));
+	exit(1);
+}
+
+int		main(int ac, char **av)
 {
 	t_data			*d;
 	char			*name_term;
@@ -84,8 +62,7 @@ int			main(int ac, char **av)
 	if (!(name_term = getenv("TERM")))
 		disp_error("No terminal specified, specify it with: 'setenv TERM'\n");
 	d = (t_data *)ft_memalloc(sizeof(t_data));
-	if (tgetent(NULL, name_term) == ERR
-			|| tcgetattr(0, &d->oldterm) == -1)
+	if (tgetent(NULL, name_term) == ERR || tcgetattr(0, &d->oldterm) == -1)
 		print_error(NULL);
 	tcgetattr(0, &d->term);
 	d->term.c_lflag &= ~(ECHO | ICANON);
@@ -93,12 +70,16 @@ int			main(int ac, char **av)
 	d->term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
 		print_error(NULL);
+	signal(SIGTSTP, &do_pause);
+	signal(SIGCONT, &do_restart);
 	signal(SIGINT, sighandler);
 	signal(SIGWINCH, &winsize_changed);
 	d->args = char_to_lst(av);
 	d->ac = ac - 2;
 	d->num_curr = 0;
 	get_data(d);
+	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	user_hand(&d);
 	reset_term(d);
+	return (0);
 }

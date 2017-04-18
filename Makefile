@@ -24,9 +24,11 @@ LIB = libft/libft.a
 
 SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/hand_args.c		\
+		$(SRC_PATH)/gest_in.c		\
 		$(SRC_PATH)/buff_handle.c	\
 		$(SRC_PATH)/gest_key.c		\
 		$(SRC_PATH)/deletion.c		\
+		$(SRC_PATH)/print_args.c	\
 		$(SRC_PATH)/extra.c
 
 OSRC = $(SRC:.c=.o)

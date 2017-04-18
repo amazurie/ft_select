@@ -33,12 +33,14 @@ int		check_winsize(t_arg *arg, char **buff, int *whcl)
 	return (1);
 }
 
-int		tty_fd(void)
+int		tty_fd(int i)
 {
 	static int	ttyfd = -1;
 
 	if (ttyfd == -1)
-		ttyfd = open("/dev/tty", O_RDWR);
+		ttyfd = open("/dev/tty", O_WRONLY);
+	if (i == -1)
+		ttyfd = i;
 	return (ttyfd);
 }
 
@@ -79,8 +81,9 @@ void	disp_error(char *str)
 
 void	reset_term(t_data *d)
 {
-	ft_putstr_fd(tgetstr("ve", NULL), tty_fd());
-	ft_putstr_fd(tgetstr("te", NULL), tty_fd());
+	ft_putstr_fd(tgetstr("ve", NULL), tty_fd(0));
+	ft_putstr_fd(tgetstr("te", NULL), tty_fd(0));
 	tcsetattr(0, 0, &d->oldterm);
-	close(tty_fd());
+	close(tty_fd(0));
+	tty_fd(-1);
 }
