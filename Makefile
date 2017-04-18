@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/04/18 12:39:30 by amazurie         ###   ########.fr        #
+#    Updated: 2017/04/18 13:17:00 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/gest_key2.c		\
 		$(SRC_PATH)/deletion.c		\
 		$(SRC_PATH)/print_args.c	\
-		$(SRC_PATH)/extra.c
+		$(SRC_PATH)/extra.c			\
+		$(SRC_PATH)/error.c
 
 OSRC = $(SRC:.c=.o)
 

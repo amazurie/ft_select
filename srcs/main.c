@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 13:12:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 13:31:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void		winsize_changed(int sig)
+static void	winsize_changed(int sig)
 {
 	display_args(NULL);
 }
@@ -54,13 +54,14 @@ static void	sighandler(int sig)
 	exit(1);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_data			*d;
 	char			*name_term;
 
 	if (!av || !av[1])
-		disp_error("ft_select: bad input\nusage: ./ft_select input [input...]\n");
+		disp_error(
+				"ft_select: bad input\nusage: /ft_select input [input...]\n");
 	if (!(name_term = getenv("TERM")))
 		disp_error("No terminal specified, specify it with: 'setenv TERM'\n");
 	d = (t_data *)ft_memalloc(sizeof(t_data));
@@ -78,11 +79,6 @@ int		main(int ac, char **av)
 	signal(SIGWINCH, &winsize_changed);
 	d->args = char_to_lst(av);
 	d->ac = ac - 2;
-	d->num_curr = 0;
-	get_data(d);
-	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	user_hand(&d);
-	free_args(d->args);
-	reset_term(d);
 	return (0);
 }

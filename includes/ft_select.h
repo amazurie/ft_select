@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 12:48:14 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 13:14:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 
 # define BUFFER_SIZE 2000
 
-typedef struct	s_arg
+typedef struct		s_arg
 {
 	int				num;
 	char			*elem;
 	int				is_select;
 	struct s_arg	*next;
-}				t_arg;
+}					t_arg;
 
 typedef struct		s_data
 {

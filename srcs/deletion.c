@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   deletion.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/18 13:15:23 by amazurie          #+#    #+#             */
+/*   Updated: 2017/04/18 13:15:25 by amazurie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
-void	reset_num(t_data **d)
+void		reset_num(t_data **d)
 {
 	t_arg	*arg;
 	int		i;
@@ -81,7 +93,7 @@ void		del_curr(t_data **d)
 	}
 }
 
-void	free_args(t_arg *arg)
+void		free_args(t_arg *arg)
 {
 	t_arg	*tmp;
 

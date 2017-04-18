@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gest_key.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/18 13:22:27 by amazurie          #+#    #+#             */
+/*   Updated: 2017/04/18 13:23:14 by amazurie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 static void	left_arrow(t_data **d)
 {
 	struct winsize	ws;
-	int	w;
-	int	c;
-	int	l;
+	int				w;
+	int				c;
+	int				l;
 
 	ioctl(tty_fd(0), TIOCGWINSZ, &ws);
 	w = ws.ws_col;
@@ -25,9 +37,9 @@ static void	left_arrow(t_data **d)
 static void	right_arrow(t_data **d)
 {
 	struct winsize	ws;
-	int	w;
-	int	c;
-	int	l;
+	int				w;
+	int				c;
+	int				l;
 
 	ioctl(tty_fd(0), TIOCGWINSZ, &ws);
 	w = ws.ws_col;
@@ -50,7 +62,8 @@ int			gest_arrow(t_data **d, char *tmp)
 	if (tmp[2] == 65)
 		(*d)->num_curr = ((*d)->num_curr == 0) ? (*d)->ac : (*d)->num_curr - 1;
 	else if (tmp[2] == 66)
-		(*d)->num_curr = ((*d)->num_curr == (*d)->ac) ? (*d)->num_curr = 0 : (*d)->num_curr + 1;
+		(*d)->num_curr = ((*d)->num_curr == (*d)->ac) ?
+			(*d)->num_curr = 0 : (*d)->num_curr + 1;
 	else if (tmp[2] == 67)
 		right_arrow(d);
 	else if (tmp[2] == 68)
@@ -60,7 +73,7 @@ int			gest_arrow(t_data **d, char *tmp)
 	return (2);
 }
 
-void	do_space(t_data **d)
+void		do_space(t_data **d)
 {
 	t_arg *arg;
 

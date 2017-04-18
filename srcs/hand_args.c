@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 12:10:32 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 13:23:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		nbr_col(t_arg *arg, int *nline)
 	return (i + (i * *nline < nbr));
 }
 
-void		disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
+void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 {
 	int		i;
 
@@ -112,7 +112,7 @@ void		disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	}
 }
 
-void		display_args(t_data *d)
+void	display_args(t_data *d)
 {
 	struct winsize	w;
 	t_data			*save_d;
