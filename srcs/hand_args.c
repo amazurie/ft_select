@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 15:56:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 17:02:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_arg	*char_to_lst(char **argv)
 	i = 1;
 	while (argv[i])
 	{
-		argtmp->color = arg_color(argv[i]);
 		argtmp->num = i - 1;
+		argtmp->color = arg_color(argv[i]);
 		argtmp->elem = ft_strndup(argv[i], ft_strlen_chr(argv[i], '='));
 		argtmp->is_select = 0;
 		argtmp->next = (t_arg *)ft_memalloc(sizeof(t_arg));
@@ -131,7 +131,7 @@ void	display_args(t_data *d)
 	buffcat(&buff, tgetstr("cd", NULL));
 	ioctl(0, TIOCGWINSZ, &w);
 	whcl[0] = w.ws_col;
-	whcl[1] = w.ws_row;
+	whcl[1] = w.ws_row - 1;
 	whcl[3] = nbrline(save_d->args, whcl[0], &whcl[2]);
 	whcl[4] = nbr_col(save_d->args, &whcl[3]);
 	if (check_winsize(save_d->args, &buff, whcl))

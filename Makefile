@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/04/18 15:54:49 by amazurie         ###   ########.fr        #
+#    Updated: 2017/04/18 16:15:57 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_select
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 
 INC_PATH = includes
 SRC_PATH = srcs
@@ -31,7 +31,8 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/deletion.c		\
 		$(SRC_PATH)/print_args.c	\
 		$(SRC_PATH)/extra.c			\
-		$(SRC_PATH)/error.c
+		$(SRC_PATH)/error.c			\
+		$(SRC_PATH)/search.c
 
 OSRC = $(SRC:.c=.o)
 

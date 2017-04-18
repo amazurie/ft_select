@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 13:31:30 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 16:53:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	in2(t_data **d, char *tmp)
 		select_all(d, 0);
 	else if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
 		del_curr(d);
+	else if (tmp[0] == 47 && !tmp[1])
+		search(d);
 	else
 		return (1);
 	return (2);

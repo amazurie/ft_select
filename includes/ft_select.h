@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 14:59:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 16:15:35 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void				free_args(t_arg *arg);
 void				select_all(t_data **d, int etat);
 void				del_curr(t_data **d);
 char				*arg_color(char *av);
+void				search(t_data **d);
 
 #endif
