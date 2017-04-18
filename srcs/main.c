@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 12:34:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 13:12:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ static void	do_restart(int sig)
 {
 	t_data	*d;
 
+	sig = 0;
 	d = get_data(NULL);
-	signal(SIGTSTP, &do_pause);
-	signal(SIGCONT, &do_restart);
 	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
 		print_error(NULL);
+	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
+	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
 	winsize_changed(0);
-	user_hand(&d);
+	signal(SIGTSTP, &do_pause);
+	signal(SIGCONT, &do_restart);
 }
 
 static void	sighandler(int sig)
