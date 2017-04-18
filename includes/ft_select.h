@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 13:14:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 14:59:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@
 # include <curses.h>
 # include <sys/ioctl.h>
 # include <term.h>
+# include <sys/stat.h>
 
 # define BUFFER_SIZE 2000
+# define DEF_COLOR "\x1b[39m"
 
 typedef struct		s_arg
 {
 	int				num;
 	char			*elem;
+	char			*color;
 	int				is_select;
 	struct s_arg	*next;
 }					t_arg;
@@ -66,5 +69,6 @@ int					check_winsize(t_arg *arg, char **buff, int *whcl);
 void				free_args(t_arg *arg);
 void				select_all(t_data **d, int etat);
 void				del_curr(t_data **d);
+char				*arg_color(char *av);
 
 #endif

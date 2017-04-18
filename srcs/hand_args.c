@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 13:23:41 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 14:59:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_arg	*char_to_lst(char **argv)
 	i = 1;
 	while (argv[i])
 	{
+		argtmp->color = arg_color(argv[i]);
 		argtmp->num = i - 1;
 		argtmp->elem = ft_strndup(argv[i], ft_strlen_chr(argv[i], '='));
 		argtmp->is_select = 0;
@@ -100,7 +101,9 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 			buffcat(buff, tgetstr("us", NULL));
 		if (ar->is_select)
 			buffcat(buff, tgetstr("mr", NULL));
+		buffcat(buff, ar->color);
 		buffcat(buff, ar->elem);
+		buffcat(buff, DEF_COLOR);
 		buffcat(buff, tgetstr("me", NULL));
 		whcl[1]++;
 		if (whcl[1] == whcl[4])
