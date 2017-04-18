@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 10:35:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 15:31:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 15:55:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_data		*get_data(t_data *d)
 
 void		reset_term(t_data *d)
 {
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), tty_fd(0));
+	ft_putstr_fd(tgetstr("cd", NULL), tty_fd(0));
 	ft_putstr_fd(tgetstr("ve", NULL), tty_fd(0));
 	ft_putstr_fd(tgetstr("te", NULL), tty_fd(0));
 	tcsetattr(0, 0, &d->oldterm);

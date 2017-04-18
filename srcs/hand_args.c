@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 14:59:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 15:56:33 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ int		nbrline(t_arg *arg, int w, int *len)
 	*len = 0;
 	while (tmp)
 	{
-		if (ft_strlen(tmp->elem) >= *len)
+		if (ft_strlen(tmp->elem) >= (size_t)*len)
 			*len = ft_strlen(tmp->elem) + 1;
 		tmp = tmp->next;
 		i++;
 	}
-	if (i == 1)
-		return (1);
-	if (w)
+	if (w > *len && i != 1)
 		return (w / *len - (w % *len == 0));
-	return (0);
+	return (1);
 }
 
 int		nbr_col(t_arg *arg, int *nline)

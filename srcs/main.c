@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 14:06:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 15:55:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	winsize_changed(int sig)
 {
 	display_args(NULL);
+	sig = 0;
 }
 
 static void	do_pause(int sig)
@@ -51,6 +52,7 @@ static void	do_restart(int sig)
 static void	sighandler(int sig)
 {
 	reset_term(get_data(NULL));
+	sig = 0;
 	exit(1);
 }
 
