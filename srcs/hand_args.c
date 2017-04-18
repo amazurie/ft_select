@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/14 15:15:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 12:10:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void		display_args(t_data *d)
 	whcl = (int *)ft_memalloc(sizeof(int) * 6);
 	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
 	buffcat(&buff, tgetstr("cd", NULL));
-	ioctl(tty_fd(0), TIOCGWINSZ, &w);
+	ioctl(0, TIOCGWINSZ, &w);
 	whcl[0] = w.ws_col;
 	whcl[1] = w.ws_row;
 	whcl[3] = nbrline(save_d->args, whcl[0], &whcl[2]);

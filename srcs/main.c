@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/14 14:33:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 12:34:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		main(int ac, char **av)
 	get_data(d);
 	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	user_hand(&d);
+	free_args(d->args);
 	reset_term(d);
 	return (0);
 }

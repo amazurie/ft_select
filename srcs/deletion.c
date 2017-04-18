@@ -58,3 +58,39 @@ void		do_del(t_data **d)
 	reset_num(d);
 	(*d)->num_curr = 0;
 }
+
+void		del_curr(t_data **d)
+{
+	t_arg	*tmp;
+	t_arg	*tmp2;
+
+	tmp = (*d)->args;
+	tmp2 = NULL;
+	while (tmp)
+	{
+		if (tmp->num == (*d)->num_curr)
+		{
+			del_arg(d, &tmp, &tmp2);
+			reset_num(d);
+			if ((*d)->num_curr > (*d)->ac)
+				(*d)->num_curr = 0;
+			return ;
+		}
+		tmp2 = tmp;
+		tmp = tmp->next;
+	}
+}
+
+void	free_args(t_arg *arg)
+{
+	t_arg	*tmp;
+
+	while (arg)
+	{
+		tmp = arg;
+		free(tmp->elem);
+		arg = arg->next;
+		free(tmp);
+	}
+	arg = NULL;
+}

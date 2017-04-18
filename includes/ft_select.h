@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/14 15:15:20 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/18 12:48:14 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,8 @@ void				print_args(t_data *d);
 int					nbrline(t_arg *arg, int w, int *len);
 int					nbr_col(t_arg *arg, int *nbrline);
 int					check_winsize(t_arg *arg, char **buff, int *whcl);
+void				free_args(t_arg *arg);
+void				select_all(t_data **d, int etat);
+void				del_curr(t_data **d);
 
 #endif
