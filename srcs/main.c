@@ -6,47 +6,16 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 15:55:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:10:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void	winsize_changed(int sig)
+void		winsize_changed(int sig)
 {
 	display_args(NULL);
 	sig = 0;
-}
-
-static void	do_pause(int sig)
-{
-	t_data	*d;
-	char	io[2];
-
-	sig = 0;
-	d = get_data(NULL);
-	reset_term(d);
-	signal(SIGTSTP, SIG_DFL);
-	io[0] = d->term.c_cc[VSUSP];
-	io[1] = 0;
-	ioctl(0, TIOCSTI, io);
-	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), tty_fd(0));
-	ft_putstr_fd(tgetstr("cd", NULL), tty_fd(0));
-}
-
-static void	do_restart(int sig)
-{
-	t_data	*d;
-
-	sig = 0;
-	d = get_data(NULL);
-	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
-		print_error(NULL);
-	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
-	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
-	winsize_changed(0);
-	signal(SIGTSTP, &do_pause);
-	signal(SIGCONT, &do_restart);
 }
 
 static void	sighandler(int sig)
@@ -75,12 +44,12 @@ int			main(int ac, char **av)
 	d->term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
 		print_error(NULL);
-	signal(SIGTSTP, &do_pause);
-	signal(SIGCONT, &do_restart);
-	signal(SIGINT, sighandler);
 	signal(SIGWINCH, &winsize_changed);
 	d->args = char_to_lst(av);
 	d->ac = ac - 2;
+	d->max_col = 0;
+	d->num_curr = 0;
+	signal(SIGINT, sighandler);
 	user_hand(&d);
 	return (0);
 }

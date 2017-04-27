@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 16:01:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 17:18:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:11:57 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_arg	*hand_tab(t_data **d, t_arg *arg, char *line)
 		while (arg && ft_strncmp(arg->elem, (line + 1), ft_strlen((line + 1))))
 			arg = arg->next;
 	}
-	if (arg && !ft_strncmp(arg->elem, (line + 1), ft_strlen((line + 1))))
+	else if (!ft_strncmp(arg->elem, (line + 1), ft_strlen((line + 1))))
 		(*d)->num_curr = arg->num;
 	display_args(*d);
 	return (arg);

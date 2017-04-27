@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/04/18 16:15:57 by amazurie         ###   ########.fr        #
+#    Updated: 2017/04/27 16:45:06 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/print_args.c	\
 		$(SRC_PATH)/extra.c			\
 		$(SRC_PATH)/error.c			\
-		$(SRC_PATH)/search.c
+		$(SRC_PATH)/search.c		\
+		$(SRC_PATH)/check_winsize.c	\
+		$(SRC_PATH)/calc_colline.c
 
 OSRC = $(SRC:.c=.o)
 

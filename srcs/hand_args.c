@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 17:02:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:05:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,77 +38,51 @@ t_arg	*char_to_lst(char **argv)
 	return (arglst);
 }
 
-int		nbrline(t_arg *arg, int w, int *len)
+void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 {
-	t_arg	*tmp;
-	int		i;
+	int	j;
 
-	tmp = arg;
-	i = 0;
-	*len = 0;
-	while (tmp)
+	buffcat(buff, tgoto(tgetstr("cm", NULL), whcl[7] * whcl[2], whcl[6]));
+	if ((*ar)->num == curr)
+		buffcat(buff, tgetstr("us", NULL));
+	if ((*ar)->is_select)
+		buffcat(buff, tgetstr("mr", NULL));
+	buffcat(buff, (*ar)->color);
+	buffcat(buff, (*ar)->elem);
+	buffcat(buff, DEF_COLOR);
+	buffcat(buff, tgetstr("me", NULL));
+	whcl[6]++;
+	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
+		whcl[7]++;
+	(*ar) = (*ar)->next;
+	if (whcl[6] == whcl[1])
 	{
-		if (ft_strlen(tmp->elem) >= (size_t)*len)
-			*len = ft_strlen(tmp->elem) + 1;
-		tmp = tmp->next;
-		i++;
+		j = whcl[5] + (whcl[4] - (whcl[5] + whcl[1]));
+		while ((*ar) && j-- > 0)
+			(*ar) = (*ar)->next;
 	}
-	if (w > *len && i != 1)
-		return (w / *len - (w % *len == 0));
-	return (1);
-}
-
-int		nbr_col(t_arg *arg, int *nline)
-{
-	t_arg	*tmp;
-	int		nbr;
-	int		i;
-	int		j;
-
-	nbr = 0;
-	tmp = arg;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		nbr++;
-	}
-	i = 0;
-	while (i * nbr < *nline)
-		i++;
-	j = nbr + (*nline - (i - 1) * nbr);
-	i = 0;
-	while (i * *nline < j)
-		i++;
-	i--;
-	j = i + (i * *nline < nbr);
-	*nline -= (i * *nline < nbr);
-	return (i + (i * *nline < nbr));
+	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
+		whcl[6] = 0;
 }
 
 void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 {
 	int		i;
+	int		j;
+	int		k;
 
+	k = whcl[3] * whcl[1];
 	i = 0;
-	whcl[0] = 0;
-	whcl[1] = 0;
-	while (ar)
-	{
-		buffcat(buff, tgoto(tgetstr("cm", NULL), whcl[0] * whcl[2], whcl[1]));
-		if (ar->num == curr)
-			buffcat(buff, tgetstr("us", NULL));
-		if (ar->is_select)
-			buffcat(buff, tgetstr("mr", NULL));
-		buffcat(buff, ar->color);
-		buffcat(buff, ar->elem);
-		buffcat(buff, DEF_COLOR);
-		buffcat(buff, tgetstr("me", NULL));
-		whcl[1]++;
-		if (whcl[1] == whcl[4])
-			whcl[0]++;
-		if (whcl[1] == whcl[4])
-			whcl[1] = 0;
+	whcl[6] = 0;
+	whcl[7] = 0;
+	j = whcl[5];
+	while (ar && j-- > 0)
 		ar = ar->next;
+	buffcat(buff, tgoto(tgetstr("cm", NULL), 0, 0));
+	buffcat(buff, tgetstr("cd", NULL));
+	while (ar && k-- > 0)
+	{
+		buff_arg(&ar, buff, curr, whcl);
 		i++;
 	}
 }
@@ -126,17 +100,17 @@ void	display_args(t_data *d)
 	if (!save_d)
 		return ;
 	buff = (char *)ft_memalloc(BUFFER_SIZE + 1);
-	whcl = (int *)ft_memalloc(sizeof(int) * 6);
-	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
-	buffcat(&buff, tgetstr("cd", NULL));
+	whcl = (int *)ft_memalloc(sizeof(int) * 9);
 	ioctl(0, TIOCGWINSZ, &w);
 	whcl[0] = w.ws_col;
 	whcl[1] = w.ws_row - 1;
 	whcl[3] = nbrline(save_d->args, whcl[0], &whcl[2]);
 	whcl[4] = nbr_col(save_d->args, &whcl[3]);
-	if (check_winsize(save_d->args, &buff, whcl))
-		disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
+	whcl[5] = check_winsize(save_d, whcl);
+	save_d->max_col = whcl[5];
+	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);
 	free(whcl);
+	get_data(save_d);
 }

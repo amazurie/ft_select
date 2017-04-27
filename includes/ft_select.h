@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 16:15:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:10:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_data
 	struct termios	oldterm;
 	struct termios	term;
 	int				ac;
+	int				max_col;
 	int				num_curr;
 	struct s_arg	*args;
 }					t_data;
@@ -65,11 +66,12 @@ size_t				buffcat(char **buff, char *s);
 void				print_args(t_data *d);
 int					nbrline(t_arg *arg, int w, int *len);
 int					nbr_col(t_arg *arg, int *nbrline);
-int					check_winsize(t_arg *arg, char **buff, int *whcl);
+int					check_winsize(t_data *d, int *whcl);
 void				free_args(t_arg *arg);
 void				select_all(t_data **d, int etat);
 void				del_curr(t_data **d);
 char				*arg_color(char *av);
 void				search(t_data **d);
+void				winsize_changed(int	sig);
 
 #endif

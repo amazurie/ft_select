@@ -6,11 +6,42 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 16:53:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:13:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+static void	do_pause(int sig)
+{
+	t_data	*d;
+	char	io[2];
+
+	sig = 0;
+	d = get_data(NULL);
+	reset_term(d);
+	signal(SIGTSTP, SIG_DFL);
+	io[0] = d->term.c_cc[VSUSP];
+	io[1] = 0;
+	ioctl(0, TIOCSTI, io);
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, 0), tty_fd(0));
+	ft_putstr_fd(tgetstr("cd", NULL), tty_fd(0));
+}
+
+static void	do_restart(int sig)
+{
+	t_data	*d;
+
+	sig = 0;
+	d = get_data(NULL);
+	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
+		print_error(NULL);
+	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
+	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
+	winsize_changed(0);
+	signal(SIGTSTP, &do_pause);
+	signal(SIGCONT, &do_restart);
+}
 
 static int	in2(t_data **d, char *tmp)
 {
@@ -55,13 +86,15 @@ static int	in(t_data **d, char *tmp)
 
 void		user_hand(t_data **d)
 {
+	t_data	*dtmp;
 	char	*tmp;
 	int		i;
 
-	(*d)->num_curr = 0;
 	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
 	tmp = (char *)ft_memalloc(7);
+	signal(SIGTSTP, &do_pause);
+	signal(SIGCONT, &do_restart);
 	i = 2;
 	while (i)
 	{
@@ -73,6 +106,8 @@ void		user_hand(t_data **d)
 		ft_bzero(tmp, 6);
 		if (!(*d)->args)
 			i = 0;
+		dtmp = get_data(NULL);
+		(*d)->max_col = dtmp->max_col;
 	}
 	free_args((*d)->args);
 	reset_term((*d));
