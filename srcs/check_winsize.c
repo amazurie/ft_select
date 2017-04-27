@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:42:31 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:01:20 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:15:33 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,9 @@ static int	check_down(int num_curr, int max_col, int *whcl)
 
 int			check_winsize(t_data *d, int *whcl)
 {
-	t_arg	*arg;
 	int		i;
 	int		j;
 
-	arg = d->args;
-	while (arg)
-	{
-		arg = arg->next;
-		i++;
-	}
-	if (whcl[3] * whcl[1] >= i)
-		return (0);
 	i = 0;
 	j = d->max_col;
 	while (i < whcl[3])

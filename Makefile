@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/04/27 16:45:06 by amazurie         ###   ########.fr        #
+#    Updated: 2017/04/27 17:14:50 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_select
 
 CC = gcc
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 INC_PATH = includes
 SRC_PATH = srcs
