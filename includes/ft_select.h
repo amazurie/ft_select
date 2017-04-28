@@ -73,5 +73,6 @@ void				del_curr(t_data **d);
 char				*arg_color(char *av);
 void				search(t_data **d);
 void				winsize_changed(int	sig);
+int					confirm(char *s);
 
 #endif

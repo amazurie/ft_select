@@ -29,6 +29,8 @@ static void	left_arrow(t_data **d)
 			(*d)->num_curr = c * l - l * 2 + (*d)->num_curr - 1;
 		else
 			(*d)->num_curr = c * l - l + (*d)->num_curr - 1;
+		if (l == 1)
+			(*d)->num_curr++;
 	}
 	else
 		(*d)->num_curr -= l;
@@ -52,6 +54,8 @@ static void	right_arrow(t_data **d)
 			(*d)->num_curr += l;
 		if ((*d)->num_curr > (*d)->ac || (*d)->num_curr < 0)
 			(*d)->num_curr = (*d)->ac;
+		if (l == 1)
+			(*d)->num_curr = 0;
 	}
 	else
 		(*d)->num_curr += l;

@@ -14,7 +14,6 @@
 
 static t_arg	*hand_tab(t_data **d, t_arg *arg, char *line)
 {
-	arg = arg->next;
 	while (arg && ft_strncmp(arg->elem, (line + 1), ft_strlen((line + 1))))
 		arg = arg->next;
 	if (!arg)
@@ -37,7 +36,7 @@ static t_arg	*hand_chr(t_data **d, t_arg *arg, char **line, char *tmp)
 		(*line)[ft_strlen(*line) - 1] = 0;
 	else if (tmp[0] == 9 && !tmp[1])
 		return (hand_tab(d, arg, *line));
-	else if (tmp[0] != 10 || (tmp[0] == 10 && tmp[1]))
+	else if (ft_isprint(tmp[0]) && (tmp[0] != 10 || (tmp[0] == 10 && tmp[1])))
 	{
 		tmp2 = ft_strjoin(*line, tmp);
 		free(*line);
@@ -66,7 +65,8 @@ void			search(t_data **d)
 	line = ft_strdup("/");
 	tmp = (char *)ft_memalloc(7);
 	arg = (*d)->args;
-	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && line[0])
+	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && line[0]
+			&& (tmp[0] != 27 || tmp[1]))
 	{
 		ioctl(0, TIOCGWINSZ, &w);
 		ft_putstr_fd(tgetstr("mr", NULL), tty_fd(0));

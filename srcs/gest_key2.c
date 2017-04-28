@@ -20,6 +20,14 @@ void		select_all(t_data **d, int etat)
 		etat = 1;
 	else
 		etat = 0;
+	if (etat == 1)
+	{
+		if (!confirm("All arguments will be selected"))
+			return ;
+	}
+	else
+		if (!confirm("All arguments will be unselected"))
+			return ;
 	tmp = (*d)->args;
 	while (tmp)
 	{
