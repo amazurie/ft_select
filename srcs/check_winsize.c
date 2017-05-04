@@ -12,12 +12,12 @@
 
 #include "ft_select.h"
 
-static int	check_up(int num_curr, int max_col, int *whcl)
+static int	check_up(int num_curr, int min_line, int *whcl)
 {
 	int	i;
 	int	j;
 
-	j = max_col;
+	j = min_line;
 	while (j-- > 0)
 	{
 		i = 0;
@@ -32,12 +32,12 @@ static int	check_up(int num_curr, int max_col, int *whcl)
 	return (0);
 }
 
-static int	check_down(int num_curr, int max_col, int *whcl)
+static int	check_down(int num_curr, int min_line, int *whcl)
 {
 	int	i;
 	int	j;
 
-	j = max_col;
+	j = min_line;
 	while (j++ < whcl[4] - whcl[1])
 	{
 		i = 0;
@@ -58,7 +58,7 @@ int			check_winsize(t_data *d, int *whcl)
 	int		j;
 
 	i = 0;
-	j = d->max_col;
+	j = d->min_line;
 	while (i < whcl[3])
 	{
 		if (d->num_curr >= j + whcl[4] * i
@@ -66,7 +66,7 @@ int			check_winsize(t_data *d, int *whcl)
 			return (j);
 		i++;
 	}
-	if ((i = check_down(d->num_curr, d->max_col, whcl)) > 0)
+	if ((i = check_down(d->num_curr, d->min_line, whcl)) > 0)
 		return (i);
-	return (i = check_up(d->num_curr, d->max_col, whcl));
+	return (i = check_up(d->num_curr, d->min_line, whcl));
 }

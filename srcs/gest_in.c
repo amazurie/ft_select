@@ -45,17 +45,17 @@ static void	do_restart(int sig)
 
 static int	in2(t_data **d, char *tmp)
 {
-	if ((tmp[0] == 65 || tmp[0] == 97) && !tmp[1])
-		select_all(d, 1);
-	else if ((tmp[0] == 85 || tmp[0] == 117) && !tmp[1])
-		select_all(d, 0);
-	else if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
-		del_curr(d);
-	else if (tmp[0] == 47 && !tmp[1])
-		search(d);
-	else
-		return (1);
-	return (2);
+	if (tmp[0] == 32 && !tmp[1])
+		do_space(d);
+	else if (tmp[0] == 27 && tmp[1] == 91)
+		gest_arrow(d, tmp);
+	else if ((tmp[0] == 10) && !tmp[1])
+	{
+		print_args(*d);
+		reset_term(*d);
+		exit(1);
+	}
+	return (1);
 }
 
 static int	in(t_data **d, char *tmp)
@@ -65,20 +65,18 @@ static int	in(t_data **d, char *tmp)
 		reset_term(*d);
 		exit(1);
 	}
-	else if (tmp[0] == 32 && !tmp[1])
-		do_space(d);
 	else if ((tmp[0] == 127 && !tmp[1])
 			|| (tmp[0] == 27 && tmp[1] == 91
 				&& tmp[2] == 51 && tmp[3] == 126))
 		do_del(d);
-	else if (tmp[0] == 27 && tmp[1] == 91)
-		return (gest_arrow(d, tmp));
-	else if ((tmp[0] == 10) && !tmp[1])
-	{
-		print_args(*d);
-		reset_term(*d);
-		exit(1);
-	}
+	else if ((tmp[0] == 65 || tmp[0] == 97) && !tmp[1])
+		select_all(d, 1);
+	else if ((tmp[0] == 85 || tmp[0] == 117) && !tmp[1])
+		select_all(d, 0);
+	else if (tmp[0] == 47 && !tmp[1])
+		search(d);
+	else if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
+		del_curr(d);
 	else
 		return (in2(d, tmp));
 	return (2);
@@ -86,7 +84,6 @@ static int	in(t_data **d, char *tmp)
 
 void		user_hand(t_data **d)
 {
-	t_data	*dtmp;
 	char	*tmp;
 	int		i;
 
@@ -106,8 +103,6 @@ void		user_hand(t_data **d)
 		ft_bzero(tmp, 6);
 		if (!(*d)->args)
 			i = 0;
-		dtmp = get_data(NULL);
-		(*d)->max_col = dtmp->max_col;
 	}
 	free_args((*d)->args);
 	reset_term((*d));

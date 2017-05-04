@@ -17,6 +17,10 @@ int		confirm(char *s)
 		read(0, tmp, 6);
 	}
 	if (tmp[0] == 89 || tmp[0] == 121 || tmp[0] == 10)
+	{
+		free(tmp);
 		return (1);
+	}
+	free(tmp);
 	return (0);
 }

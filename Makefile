@@ -35,7 +35,8 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/search.c		\
 		$(SRC_PATH)/check_winsize.c	\
 		$(SRC_PATH)/calc_colline.c	\
-		$(SRC_PATH)/confirmation.c
+		$(SRC_PATH)/confirmation.c	\
+		$(SRC_PATH)/hand_onearg.c
 
 OSRC = $(SRC:.c=.o)
 

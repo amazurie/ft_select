@@ -47,7 +47,7 @@ int			main(int ac, char **av)
 	signal(SIGWINCH, &winsize_changed);
 	d->args = char_to_lst(av);
 	d->ac = ac - 2;
-	d->max_col = 0;
+	d->min_line = 0;
 	d->num_curr = 0;
 	signal(SIGINT, sighandler);
 	user_hand(&d);

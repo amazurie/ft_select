@@ -37,6 +37,9 @@ typedef struct		s_arg
 	char			*elem;
 	char			*color;
 	int				is_select;
+	int				pos_x;
+	int				pos_y;
+	int				line;
 	struct s_arg	*next;
 }					t_arg;
 
@@ -45,7 +48,8 @@ typedef struct		s_data
 	struct termios	oldterm;
 	struct termios	term;
 	int				ac;
-	int				max_col;
+	int				min_line;
+	int				max_line;
 	int				num_curr;
 	struct s_arg	*args;
 }					t_data;
@@ -53,7 +57,7 @@ typedef struct		s_data
 t_arg				*char_to_lst(char **args);
 void				user_hand(t_data **d);
 void				display_args(t_data *d);
-int					gest_arrow(t_data **d, char *tmp);
+void				gest_arrow(t_data **d, char *tmp);
 void				do_space(t_data **d);
 void				do_del(t_data **d);
 int					tty_fd(int i);
@@ -74,5 +78,6 @@ char				*arg_color(char *av);
 void				search(t_data **d);
 void				winsize_changed(int	sig);
 int					confirm(char *s);
+void				display_onearg(t_data *d, int num);
 
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hand_argv.c                                        :+:      :+:    :+:   */
+/*   hand_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -42,7 +42,7 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 {
 	int	j;
 
-	buffcat(buff, tgoto(tgetstr("cm", NULL), whcl[7] * whcl[2], whcl[6]));
+	buffcat(buff, tgoto(tgetstr("cm", NULL), (*ar)->pos_y, whcl[6]));
 	if ((*ar)->num == curr)
 		buffcat(buff, tgetstr("us", NULL));
 	if ((*ar)->is_select)
@@ -82,6 +82,8 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	buffcat(buff, tgetstr("cd", NULL));
 	while (ar && k-- > 0)
 	{
+		ar->pos_x = whcl[6];
+		ar->pos_y = whcl[7] * whcl[2];
 		buff_arg(&ar, buff, curr, whcl);
 		i++;
 	}
@@ -107,7 +109,7 @@ void	display_args(t_data *d)
 	whcl[3] = nbrline(save_d->args, whcl[0], &whcl[2]);
 	whcl[4] = nbr_col(save_d->args, &whcl[3]);
 	whcl[5] = check_winsize(save_d, whcl);
-	save_d->max_col = whcl[5];
+	save_d->min_line = whcl[5];
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);
