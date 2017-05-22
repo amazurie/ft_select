@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:22:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 13:23:14 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/05/22 11:15:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void		do_space(t_data **d)
 		else
 			arg->is_select = 1;
 	}
-	right_arrow(d);
+	(*d)->num_curr = ((*d)->num_curr == (*d)->ac) ?
+	(*d)->num_curr = 0 : (*d)->num_curr + 1;
 	display_onearg((*d), num);
 	display_onearg((*d), (*d)->num_curr);
 }
