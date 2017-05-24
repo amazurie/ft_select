@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:22:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/05/22 11:15:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/05/24 13:08:33 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void		do_space(t_data **d)
 	int		num;
 
 	num = (*d)->num_curr;
-
 	arg = (*d)->args;
 	while (arg && arg->num != (*d)->num_curr)
 		arg = arg->next;

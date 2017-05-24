@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:15:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 13:15:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/05/24 13:06:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,24 @@ void		do_del(t_data **d)
 	arg = (*d)->args;
 	while (arg)
 	{
+		if (arg->is_select && arg->num == (*d)->num_curr)
+			(*d)->num_curr++;
 		if (arg->is_select)
 			del_arg(d, &arg, &tmp);
 		else
 		{
+			if (arg->num == (*d)->num_curr)
+				arg->is_select = 1;
 			tmp = arg;
 			arg = arg->next;
 		}
 	}
 	reset_num(d);
-	(*d)->num_curr = 0;
+	arg = (*d)->args;
+	while (arg && !arg->is_select)
+		arg = arg->next;
+	arg->is_select = 0;
+	(*d)->num_curr = arg->num;
 }
 
 void		del_curr(t_data **d)
