@@ -6,7 +6,7 @@
 #    By: amazurie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by amazurie          #+#    #+#              #
-#    Updated: 2017/04/11 16:24:13 by amazurie         ###   ########.fr        #
+#    Updated: 2017/05/24 13:20:00 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ DEL_COLOR=\x1b[33m
 
 all: $(NAME)
 
-$(NAME): $(OSRC)
+$(NAME):
 	@echo "Compiling..."
 	@$(CC) $(FLAGS) -c $(SRC) -I $(INC)
 	@ar rc $(NAME) $(OSRC)
@@ -52,7 +52,6 @@ $(NAME): $(OSRC)
 
 %.o: %.c
 	@$(CC) -o $@ $(FLAGS) -I $(INC) -c $<
-	@echo "Linking file $@"
 
 clean:
 	@rm -f $(OSRC)
