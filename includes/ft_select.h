@@ -49,7 +49,8 @@ typedef struct		s_data
 	struct termios	term;
 	int				ac;
 	int				min_line;
-	int				max_line;
+	int				nbr_line;
+	int				nbr_col;
 	int				num_curr;
 	struct s_arg	*args;
 }					t_data;

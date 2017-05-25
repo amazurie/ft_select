@@ -89,27 +89,45 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	}
 }
 
-void	display_args(t_data *d)
+int		*get_size(t_data **save_d)
 {
 	struct winsize	w;
+	int				*whcl;
+
+	ioctl(0, TIOCGWINSZ, &w);
+	whcl = (int *)ft_memalloc(sizeof(int) * 9);
+	whcl[0] = w.ws_col;
+	whcl[1] = w.ws_row - 1;
+	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
+	{
+		whcl[3] = nbrline((*save_d)->args, whcl[0], &whcl[2]);
+		(*save_d)->nbr_line = whcl[3];
+		whcl[4] = nbr_col((*save_d)->args, &whcl[3]);
+		(*save_d)->nbr_line = whcl[4];
+		whcl[5] = check_winsize(*save_d, whcl);
+		(*save_d)->min_line = whcl[5];
+	}
+	else
+	{
+		whcl[3] = (*save_d)->nbr_line;
+		whcl[4] = (*save_d)->nbr_col;
+		whcl[5] = (*save_d)->min_line;
+	}
+	return (whcl);
+}
+
+void	display_args(t_data *d)
+{
 	t_data			*save_d;
 	char			*buff;
 	int				*whcl;
-
 	save_d = d;
 	if (!save_d)
 		save_d = get_data(NULL);
 	if (!save_d)
 		return ;
 	buff = (char *)ft_memalloc(BUFFER_SIZE + 1);
-	whcl = (int *)ft_memalloc(sizeof(int) * 9);
-	ioctl(0, TIOCGWINSZ, &w);
-	whcl[0] = w.ws_col;
-	whcl[1] = w.ws_row - 1;
-	whcl[3] = nbrline(save_d->args, whcl[0], &whcl[2]);
-	whcl[4] = nbr_col(save_d->args, &whcl[3]);
-	whcl[5] = check_winsize(save_d, whcl);
-	save_d->min_line = whcl[5];
+	whcl = get_size(&d);
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);

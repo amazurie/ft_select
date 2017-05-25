@@ -14,7 +14,13 @@
 
 void		winsize_changed(int sig)
 {
-	display_args(NULL);
+	t_data	*d;
+
+	d = get_data(NULL);
+	d->nbr_line = 0;
+	d->nbr_col = 0;
+	d->min_line = 0;
+	display_args(d);
 	sig = 0;
 }
 

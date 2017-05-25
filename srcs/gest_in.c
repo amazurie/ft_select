@@ -47,6 +47,15 @@ static int	in2(t_data **d, char *tmp)
 {
 	if (tmp[0] == 32 && !tmp[1])
 		do_space(d);
+	else if (tmp[0] == 27 && tmp[1] == 91 && (tmp[2] == 72
+			|| tmp[2] == 70) && !tmp[3])
+	{
+		if (tmp[2] == 72)
+			(*d)->num_curr = 0;
+		else if (tmp[2] == 70)
+			(*d)->num_curr = (*d)->ac;
+		display_args(*d);
+	}
 	else if (tmp[0] == 27 && tmp[1] == 91)
 		gest_arrow(d, tmp);
 	else if ((tmp[0] == 10) && !tmp[1])
@@ -92,6 +101,8 @@ void		user_hand(t_data **d)
 	tmp = (char *)ft_memalloc(7);
 	signal(SIGTSTP, &do_pause);
 	signal(SIGCONT, &do_restart);
+	(*d)->nbr_line = 0;
+	(*d)->nbr_col = 0;
 	i = 2;
 	while (i)
 	{
