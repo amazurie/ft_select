@@ -103,6 +103,7 @@ void		user_hand(t_data **d)
 	signal(SIGCONT, &do_restart);
 	(*d)->nbr_line = 0;
 	(*d)->nbr_col = 0;
+	(*d)->max_len = 0;
 	i = 2;
 	while (i)
 	{

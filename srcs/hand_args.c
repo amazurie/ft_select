@@ -101,18 +101,19 @@ int		*get_size(t_data **save_d)
 	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
 	{
 		whcl[3] = nbrline((*save_d)->args, whcl[0], &whcl[2]);
-		(*save_d)->nbr_line = whcl[3];
 		whcl[4] = nbr_col((*save_d)->args, &whcl[3]);
-		(*save_d)->nbr_line = whcl[4];
-		whcl[5] = check_winsize(*save_d, whcl);
-		(*save_d)->min_line = whcl[5];
+		(*save_d)->max_len = whcl[2];
+		(*save_d)->nbr_line = whcl[3];
+		(*save_d)->nbr_col = whcl[4];
 	}
 	else
 	{
+		whcl[2] = (*save_d)->max_len;
 		whcl[3] = (*save_d)->nbr_line;
 		whcl[4] = (*save_d)->nbr_col;
-		whcl[5] = (*save_d)->min_line;
 	}
+	whcl[5] = check_winsize(*save_d, whcl);
+	(*save_d)->min_line = whcl[5];
 	return (whcl);
 }
 
