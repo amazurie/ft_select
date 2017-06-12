@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:14 by amazurie          #+#    #+#             */
-/*   Updated: 2017/05/24 13:12:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 14:14:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void		select_all(t_data **d, int etat)
 		etat = 0;
 	if (etat == 1)
 	{
-		if (!confirm("All arguments will be selected"))
+		if ((*d)->conf_mode > 0 && !confirm("All arguments will be selected"))
 			return ;
 	}
-	else if (!confirm("All arguments will be unselected"))
+	else if ((*d)->conf_mode > 0
+			&& !confirm("All arguments will be unselected"))
 		return ;
 	tmp = (*d)->args;
 	while (tmp)

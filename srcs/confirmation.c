@@ -6,11 +6,35 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 13:08:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/05/24 13:08:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 14:21:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+void	conf_mode(t_data **d, int mode)
+{
+	struct winsize	w;
+	int				j;
+
+	if (mode == 1)
+		(*d)->conf_mode = ((*d)->conf_mode - 1 < 0) ? 2 : (*d)->conf_mode - 1;
+	else if (mode == 2)
+		(*d)->conf_mode = ((*d)->conf_mode + 1 > 2) ? 0 : (*d)->conf_mode + 1;
+	ioctl(0, TIOCGWINSZ, &w);
+	j = w.ws_col - 17;
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL), j, w.ws_row), tty_fd(0));
+	ft_putstr_fd(tgetstr("dl", NULL), tty_fd(0));
+	ft_putstr_fd(CONF_COL, tty_fd(0));
+	ft_putstr_fd("confirm: ", tty_fd(0));
+	ft_putstr_fd(DEFAULT_COL, tty_fd(0));
+	if ((*d)->conf_mode == 0)
+		ft_putstr_fd("none", tty_fd(0));
+	else if ((*d)->conf_mode == 1)
+		ft_putstr_fd("default", tty_fd(0));
+	else if ((*d)->conf_mode == 2)
+		ft_putstr_fd("all", tty_fd(0));
+}
 
 int		confirm(char *s)
 {
@@ -22,10 +46,12 @@ int		confirm(char *s)
 			&& tmp[0] != 78 && tmp[0] != 10 && tmp[0] != 27)
 	{
 		ioctl(0, TIOCGWINSZ, &w);
+		ft_putstr_fd(CONF_COL, tty_fd(0));
 		ft_putstr_fd(tgoto(tgetstr("cm", NULL), 0, w.ws_col), tty_fd(0));
 		ft_putstr_fd(tgetstr("cd", NULL), tty_fd(0));
 		ft_putstr_fd(s, tty_fd(0));
-		ft_putstr_fd(" continue ? (y/n) ", tty_fd(0));
+		ft_putstr_fd(", continue ? (y/n) ", tty_fd(0));
+		ft_putstr_fd(DEFAULT_COL, tty_fd(0));
 		read(0, tmp, 6);
 	}
 	if (tmp[0] == 89 || tmp[0] == 121 || tmp[0] == 10)

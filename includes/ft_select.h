@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:10:06 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 14:15:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@
 # include <term.h>
 # include <sys/stat.h>
 
-# define BUFFER_SIZE 2000
-# define DEF_COLOR "\x1b[39m"
+# define CONF_COL		"\e[33m"
+# define DEFAULT_COL	"\e[0m"
+# define BUFFER_SIZE	2000
+# define DEF_COLOR	"\x1b[39m"
 
 typedef struct		s_arg
 {
@@ -53,6 +55,7 @@ typedef struct		s_data
 	int				nbr_line;
 	int				nbr_col;
 	int				num_curr;
+	int				conf_mode;
 	struct s_arg	*args;
 }					t_data;
 
@@ -81,5 +84,6 @@ void				search(t_data **d);
 void				winsize_changed(int	sig);
 int					confirm(char *s);
 void				display_onearg(t_data *d, int num);
+void				conf_mode(t_data **d, int mode);
 
 #endif

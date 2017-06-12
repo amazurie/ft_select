@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:13:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 14:19:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ static int	in2(t_data **d, char *tmp)
 		reset_term(*d);
 		exit(1);
 	}
+	else if (tmp[0] == 60 && !tmp[1])
+		conf_mode(d, 1);
+	else if (tmp[0] == 62 && !tmp[1])
+		conf_mode(d, 2);
 	return (1);
 }
 
@@ -71,13 +75,18 @@ static int	in(t_data **d, char *tmp)
 {
 	if (tmp[0] == 27 && !tmp[1])
 	{
+		if ((*d)->conf_mode == 2 && !confirm("you will quit"))
+			return (1);
 		reset_term(*d);
 		exit(1);
 	}
 	else if ((tmp[0] == 127 && !tmp[1])
 			|| (tmp[0] == 27 && tmp[1] == 91
 				&& tmp[2] == 51 && tmp[3] == 126))
-		do_del(d);
+	{
+		if ((*d)->conf_mode != 2 || confirm("delete all selected argument"))
+			do_del(d);
+	}
 	else if ((tmp[0] == 65 || tmp[0] == 97) && !tmp[1])
 		select_all(d, 1);
 	else if ((tmp[0] == 85 || tmp[0] == 117) && !tmp[1])
@@ -104,12 +113,14 @@ void		user_hand(t_data **d)
 	(*d)->nbr_line = 0;
 	(*d)->nbr_col = 0;
 	(*d)->max_len = 0;
+	(*d)->conf_mode = 1;
 	i = 2;
 	while (i)
 	{
 		get_data(*d);
 		if (i == 2)
 			display_args(*d);
+		conf_mode(d, 0);
 		read(0, tmp, 6);
 		i = in(d, tmp);
 		ft_bzero(tmp, 6);

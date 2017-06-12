@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:15:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/05/24 13:06:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 14:10:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void		del_curr(t_data **d)
 	t_arg	*tmp;
 	t_arg	*tmp2;
 
+	if ((*d)->conf_mode == 2 && !confirm("this will delete current argument"))
+		return ;
 	tmp = (*d)->args;
 	tmp2 = NULL;
 	while (tmp)
