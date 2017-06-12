@@ -6,31 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:15:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 14:10:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 15:18:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void		reset_num(t_data **d)
-{
-	t_arg	*arg;
-	int		i;
-
-	if (!(*d)->args)
-		return ;
-	arg = (*d)->args;
-	i = 0;
-	while (arg)
-	{
-		arg->num = i;
-		i++;
-		arg = arg->next;
-	}
-	(*d)->ac = i - 1;
-}
-
-static void	del_arg(t_data **d, t_arg **arg, t_arg **tmp)
+void		del_arg(t_data **d, t_arg **arg, t_arg **tmp)
 {
 	if (!(*tmp))
 	{
@@ -50,6 +32,21 @@ static void	del_arg(t_data **d, t_arg **arg, t_arg **tmp)
 	}
 }
 
+static void	check_del(t_data **d, t_arg **arg, t_arg **tmp)
+{
+	if ((*arg)->is_select && (*arg)->num == (*d)->num_curr)
+		(*d)->num_curr++;
+	if ((*arg)->is_select)
+		del_arg(d, arg, tmp);
+	else
+	{
+		if ((*arg)->num == (*d)->num_curr)
+			(*arg)->is_select = 1;
+		(*tmp) = (*arg);
+		(*arg) = (*arg)->next;
+	}
+}
+
 void		do_del(t_data **d)
 {
 	t_arg	*arg;
@@ -58,21 +55,11 @@ void		do_del(t_data **d)
 	tmp = NULL;
 	arg = (*d)->args;
 	while (arg)
-	{
-		if (arg->is_select && arg->num == (*d)->num_curr)
-			(*d)->num_curr++;
-		if (arg->is_select)
-			del_arg(d, &arg, &tmp);
-		else
-		{
-			if (arg->num == (*d)->num_curr)
-				arg->is_select = 1;
-			tmp = arg;
-			arg = arg->next;
-		}
-	}
+		check_del(d, &arg, &tmp);
 	reset_num(d);
 	arg = (*d)->args;
+	if (!arg)
+		return ;
 	while (arg && !arg->is_select)
 		arg = arg->next;
 	arg->is_select = 0;
@@ -103,7 +90,7 @@ void		del_curr(t_data **d)
 	}
 }
 
-void		free_args(t_arg *arg)
+void	free_args(t_arg *arg)
 {
 	t_arg	*tmp;
 

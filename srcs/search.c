@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 16:01:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:11:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 15:50:36 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,15 @@ void			search(t_data **d)
 	tmp = (char *)ft_memalloc(7);
 	arg = (*d)->args;
 	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && line[0]
-			&& (tmp[0] != 27 || tmp[1]))
+			&& (tmp[0] != 27 || tmp[1]) && (*d)->args)
 	{
 		set_search(line);
 		ft_bzero(tmp, 6);
 		read(0, tmp, 6);
-		arg = hand_chr(d, arg, &line, tmp);
+		if (!gest_searchin(d, line, tmp))
+			arg = hand_chr(d, arg, &line, tmp);
+		else if (!arg)
+			arg = (*d)->args;
 	}
 	free(tmp);
 	if (!line[0])

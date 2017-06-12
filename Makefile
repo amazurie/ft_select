@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/05/24 13:20:41 by amazurie         ###   ########.fr        #
+#    Updated: 2017/06/12 15:15:36 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ft_select
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 
 INC_PATH = includes
 SRC_PATH = srcs
@@ -36,7 +36,9 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/check_winsize.c	\
 		$(SRC_PATH)/calc_colline.c	\
 		$(SRC_PATH)/confirmation.c	\
-		$(SRC_PATH)/hand_onearg.c
+		$(SRC_PATH)/hand_onearg.c	\
+		$(SRC_PATH)/color.c			\
+		$(SRC_PATH)/gest_searchin.c
 
 OSRC = $(SRC:.c=.o)
 

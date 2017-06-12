@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:05:41 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 15:24:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ void	display_args(t_data *d)
 	char			*buff;
 	int				*whcl;
 	save_d = d;
-	if (!save_d)
+	if (!save_d || !save_d->args)
 		save_d = get_data(NULL);
-	if (!save_d)
+	if (!save_d || !save_d->args)
 		return ;
 	buff = (char *)ft_memalloc(BUFFER_SIZE + 1);
 	whcl = get_size(&d);

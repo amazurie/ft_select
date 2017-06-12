@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 14:15:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/12 15:15:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,8 @@ void				winsize_changed(int	sig);
 int					confirm(char *s);
 void				display_onearg(t_data *d, int num);
 void				conf_mode(t_data **d, int mode);
+int					gest_searchin(t_data **d, char *line, char *tmp);
+void				reset_num(t_data **d);
+void				del_arg(t_data **d, t_arg **arg, t_arg **tmp);
 
 #endif
