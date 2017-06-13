@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 15:15:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 14:55:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void				print_args(t_data *d);
 int					nbrline(t_arg *arg, int w, int *len);
 int					nbr_col(t_arg *arg, int *nbrline);
 int					check_winsize(t_data *d, int *whcl);
-void				free_args(t_arg *arg);
+void				free_args(t_arg **arg);
 void				select_all(t_data **d, int etat);
 void				del_curr(t_data **d);
 char				*arg_color(char *av);
@@ -88,5 +88,6 @@ void				conf_mode(t_data **d, int mode);
 int					gest_searchin(t_data **d, char *line, char *tmp);
 void				reset_num(t_data **d);
 void				del_arg(t_data **d, t_arg **arg, t_arg **tmp);
+t_arg				*save_args(t_data **d, char *tmp);
 
 #endif

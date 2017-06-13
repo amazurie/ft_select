@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 10:35:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/18 15:55:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 14:08:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	reset_num(t_data **d)
 {
-    t_arg	*arg;
-    int		i;
-    
-    if (!(*d)->args)
-        return ;
-    arg = (*d)->args;
-    i = 0;
-    while (arg)
-    {
-        arg->num = i;
-        i++;
-        arg = arg->next;
-    }
-    (*d)->ac = i - 1;
+	t_arg	*arg;
+	int		i;
+
+	if (!(*d)->args)
+		return ;
+	arg = (*d)->args;
+	i = 0;
+	while (arg)
+	{
+		arg->num = i;
+		i++;
+		arg = arg->next;
+	}
+	(*d)->ac = i - 1;
 }
 
 int			tty_fd(int i)

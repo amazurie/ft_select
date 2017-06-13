@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 14:19:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:05:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ static int	in(t_data **d, char *tmp)
 		search(d);
 	else if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
 		del_curr(d);
+	else if ((tmp[0] == 82 || tmp[0] == 83 || tmp[0] == 114 || tmp[0] == 115)
+			&& !tmp[1])
+		save_args(d, tmp);
 	else
 		return (in2(d, tmp));
 	return (2);
@@ -127,6 +130,7 @@ void		user_hand(t_data **d)
 		if (!(*d)->args)
 			i = 0;
 	}
-	free_args((*d)->args);
+	free_args(&(*d)->args);
+	save_args(NULL, NULL);
 	reset_term((*d));
 }
