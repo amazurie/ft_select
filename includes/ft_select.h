@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 14:55:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:27:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void				conf_mode(t_data **d, int mode);
 int					gest_searchin(t_data **d, char *line, char *tmp);
 void				reset_num(t_data **d);
 void				del_arg(t_data **d, t_arg **arg, t_arg **tmp);
+int					in(t_data **d, char *tmp);
 t_arg				*save_args(t_data **d, char *tmp);
 
 #endif

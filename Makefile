@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/06/13 14:04:49 by amazurie         ###   ########.fr        #
+#    Updated: 2017/06/13 15:28:08 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/hand_onearg.c	\
 		$(SRC_PATH)/color.c			\
 		$(SRC_PATH)/gest_searchin.c	\
-		$(SRC_PATH)/save_args.c
+		$(SRC_PATH)/save_args.c		\
+		$(SRC_PATH)/hand_in.c
 
 OSRC = $(SRC:.c=.o)
 

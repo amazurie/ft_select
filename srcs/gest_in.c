@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 15:05:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:35:48 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,64 +43,24 @@ static void	do_restart(int sig)
 	signal(SIGCONT, &do_restart);
 }
 
-static int	in2(t_data **d, char *tmp)
+static int	inni(t_data **d, char *tmp, int i)
 {
-	if (tmp[0] == 32 && !tmp[1])
-		do_space(d);
-	else if (tmp[0] == 27 && tmp[1] == 91 && (tmp[2] == 72
-			|| tmp[2] == 70) && !tmp[3])
+	get_data(*d);
+	if (i == 3)
 	{
-		if (tmp[2] == 72)
-			(*d)->num_curr = 0;
-		else if (tmp[2] == 70)
-			(*d)->num_curr = (*d)->ac;
+		(*d)->nbr_line = 0;
+		(*d)->nbr_col = 0;
+		(*d)->min_line = 0;
+	}
+	if (i == 2 || i == 3)
 		display_args(*d);
-	}
-	else if (tmp[0] == 27 && tmp[1] == 91)
-		gest_arrow(d, tmp);
-	else if ((tmp[0] == 10) && !tmp[1])
-	{
-		print_args(*d);
-		reset_term(*d);
-		exit(1);
-	}
-	else if (tmp[0] == 60 && !tmp[1])
-		conf_mode(d, 1);
-	else if (tmp[0] == 62 && !tmp[1])
-		conf_mode(d, 2);
-	return (1);
-}
-
-static int	in(t_data **d, char *tmp)
-{
-	if (tmp[0] == 27 && !tmp[1])
-	{
-		if ((*d)->conf_mode == 2 && !confirm("you will quit"))
-			return (1);
-		reset_term(*d);
-		exit(1);
-	}
-	else if ((tmp[0] == 127 && !tmp[1])
-			|| (tmp[0] == 27 && tmp[1] == 91
-				&& tmp[2] == 51 && tmp[3] == 126))
-	{
-		if ((*d)->conf_mode != 2 || confirm("delete all selected argument"))
-			do_del(d);
-	}
-	else if ((tmp[0] == 65 || tmp[0] == 97) && !tmp[1])
-		select_all(d, 1);
-	else if ((tmp[0] == 85 || tmp[0] == 117) && !tmp[1])
-		select_all(d, 0);
-	else if (tmp[0] == 47 && !tmp[1])
-		search(d);
-	else if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
-		del_curr(d);
-	else if ((tmp[0] == 82 || tmp[0] == 83 || tmp[0] == 114 || tmp[0] == 115)
-			&& !tmp[1])
-		save_args(d, tmp);
-	else
-		return (in2(d, tmp));
-	return (2);
+	conf_mode(d, 0);
+	read(0, tmp, 6);
+	i = in(d, tmp);
+	ft_bzero(tmp, 6);
+	if (!(*d)->args)
+		i = 0;
+	return (i);
 }
 
 void		user_hand(t_data **d)
@@ -119,17 +79,7 @@ void		user_hand(t_data **d)
 	(*d)->conf_mode = 1;
 	i = 2;
 	while (i)
-	{
-		get_data(*d);
-		if (i == 2)
-			display_args(*d);
-		conf_mode(d, 0);
-		read(0, tmp, 6);
-		i = in(d, tmp);
-		ft_bzero(tmp, 6);
-		if (!(*d)->args)
-			i = 0;
-	}
+		i = inni(d, tmp, i);
 	free_args(&(*d)->args);
 	save_args(NULL, NULL);
 	reset_term((*d));
