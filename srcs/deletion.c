@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:15:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 15:03:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:37:02 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		del_curr(t_data **d)
 	}
 }
 
-void	free_args(t_arg **arg)
+void		free_args(t_arg **arg)
 {
 	t_arg	*tmp;
 

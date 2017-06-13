@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 10:35:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 14:08:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:36:51 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	reset_num(t_data **d)
+void		reset_num(t_data **d)
 {
 	t_arg	*arg;
 	int		i;

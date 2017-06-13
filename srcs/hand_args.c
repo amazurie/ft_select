@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 15:24:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:37:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	display_args(t_data *d)
 	t_data			*save_d;
 	char			*buff;
 	int				*whcl;
+
 	save_d = d;
 	if (!save_d || !save_d->args)
 		save_d = get_data(NULL);
