@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:41:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 12:02:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void		user_hand(t_data **d)
 	char	*tmp;
 	int		i;
 
+	(*d)->min_line = 0;
+	(*d)->num_curr = 0;
 	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
 	signal(SIGTSTP, &do_pause);

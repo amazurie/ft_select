@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:46:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 12:05:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_arg	*char_to_lst(char **argv)
 		argtmp->elem = ft_strndup(argv[i], ft_strlen_chr(argv[i], '='));
 		argtmp->is_select = 0;
 		if (!(argtmp->next = (t_arg *)ft_memalloc(sizeof(t_arg))))
-			return (NULL);;
+			return (NULL);
 		argtmp2 = argtmp;
 		argtmp = argtmp->next;
 		i++;
@@ -134,7 +134,7 @@ void	display_args(t_data *d)
 	if (!(buff = (char *)ft_memalloc(BUFFER_SIZE + 1)))
 		return ;
 	if (!(whcl = get_size(&d)))
-			return ;
+		return ;
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);

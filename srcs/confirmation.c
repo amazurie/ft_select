@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 13:08:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:38:29 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:58:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		confirm(char *s)
 	char			*tmp;
 
 	if (!(tmp = (char *)ft_memalloc(7)))
-	return (print_errorcont("allocation error, confirmation pass") + 1);
+		return (print_errorcont("allocation error, confirmation pass") + 1);
 	while (tmp[0] != 89 && tmp[0] != 121 && tmp[0] != 110
 			&& tmp[0] != 78 && tmp[0] != 10 && tmp[0] != 27)
 	{

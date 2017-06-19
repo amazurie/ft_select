@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:15:50 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:37:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:58:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int		print_errorcont(char *str)
 {
 	struct winsize	w;
-	t_data			*d;
 	static char		*s = NULL;
 
 	if (str != NULL)

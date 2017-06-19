@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 14:24:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 15:53:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 12:04:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	del_beg(t_data **d, char *line)
 	(*d)->num_curr = arg->num;
 }
 
-static void	select_beg(t_data **d, char *line, char *tmp, int etat)
+static void	select_beg(t_data **d, char *line, int etat)
 {
 	t_arg *tmparg;
 
@@ -69,9 +69,9 @@ static void	select_beg(t_data **d, char *line, char *tmp, int etat)
 int			gest_searchin(t_data **d, char *line, char *tmp)
 {
 	if (tmp[0] == 1 && !tmp[1])
-		select_beg(d, line, tmp, 1);
+		select_beg(d, line, 1);
 	else if (tmp[0] == 21 && !tmp[1])
-		select_beg(d, line, tmp, 0);
+		select_beg(d, line, 0);
 	else if (tmp[0] == 27 && tmp[1] == 91
 			&& tmp[2] == 51 && tmp[3] == 126)
 	{
