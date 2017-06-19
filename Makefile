@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: amazurie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/06/19 11:58:39 by amazurie         ###   ########.fr        #
+#    Created: 2017/06/19 13:34:03 by amazurie          #+#    #+#              #
+#    Updated: 2017/06/19 13:34:17 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,9 @@ SRC =	$(SRC_PATH)/main.c			\
 
 OSRC = $(SRC:.c=.o)
 
-NO_COLOR=\x1b[0m
-OK_COLOR=\x1b[32;01m
-DEL_COLOR=\x1b[33m
+NO_COLOR = \x1b[0m
+OK_COLOR = \x1b[32;01m
+DEL_COLOR = \x1b[33m
 
 all: $(NAME)
 
@@ -69,7 +69,6 @@ clean:
 fclean: clean
 	@make -C libft fclean
 	@/bin/rm -f $(NAME)
-	@/bin/rm -f a.out
 	@echo "$(DEL_COLOR)Delete $(NAME) file.$(NO_COLOR)"
 
 re: fclean all
