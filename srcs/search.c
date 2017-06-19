@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 16:01:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 15:50:36 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:56:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void			search(t_data **d)
 
 	num_save = (*d)->num_curr;
 	line = ft_strdup("/");
-	tmp = (char *)ft_memalloc(7);
+	if (!(tmp = (char *)ft_memalloc(7)))
+		return ;
 	arg = (*d)->args;
 	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && line[0]
 			&& (tmp[0] != 27 || tmp[1]) && (*d)->args)

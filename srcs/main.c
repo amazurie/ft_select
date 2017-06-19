@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/04/27 17:10:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:49:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int			main(int ac, char **av)
 				"ft_select: bad input\nusage: /ft_select input [input...]\n");
 	if (!(name_term = getenv("TERM")))
 		disp_error("No terminal specified, specify it with: 'setenv TERM'\n");
-	d = (t_data *)ft_memalloc(sizeof(t_data));
+	if (!(d = (t_data *)ft_memalloc(sizeof(t_data))))
+		print_error("malloc");
 	if (tgetent(NULL, name_term) == ERR || tcgetattr(0, &d->oldterm) == -1)
 		print_error(NULL);
 	tcgetattr(0, &d->term);

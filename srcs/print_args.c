@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:24:13 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 14:21:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:50:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	print_args(t_data *d)
 	if (d->conf_mode == 2 && !confirm("you will confirm your selection"))
 		return ;
 	arg = d->args;
-	buff = (char *)ft_memalloc(BUFF_SIZE + 1);
+	if (!(buff = (char *)ft_memalloc(BUFF_SIZE + 1)))
+		print_error("malloc");
 	while (arg)
 	{
 		if (arg->is_select)

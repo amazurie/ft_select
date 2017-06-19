@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 13:08:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/12 14:21:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:38:29 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	conf_mode(t_data **d, int mode)
 	j = w.ws_col - 17;
 	ft_putstr_fd(tgoto(tgetstr("cm", NULL), j, w.ws_row), tty_fd(0));
 	ft_putstr_fd(tgetstr("dl", NULL), tty_fd(0));
+	print_errorcont(NULL);
+	ft_putstr_fd(tgoto(tgetstr("cm", NULL), j, w.ws_row), tty_fd(0));
 	ft_putstr_fd(CONF_COL, tty_fd(0));
 	ft_putstr_fd("confirm: ", tty_fd(0));
 	ft_putstr_fd(DEFAULT_COL, tty_fd(0));
@@ -41,7 +43,8 @@ int		confirm(char *s)
 	struct winsize	w;
 	char			*tmp;
 
-	tmp = (char *)ft_memalloc(7);
+	if (!(tmp = (char *)ft_memalloc(7)))
+	return (print_errorcont("allocation error, confirmation pass") + 1);
 	while (tmp[0] != 89 && tmp[0] != 121 && tmp[0] != 110
 			&& tmp[0] != 78 && tmp[0] != 10 && tmp[0] != 27)
 	{

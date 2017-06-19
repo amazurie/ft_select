@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 15:37:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:46:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_arg	*char_to_lst(char **argv)
 	t_arg	*argtmp2;
 	int		i;
 
-	arglst = (t_arg *)ft_memalloc(sizeof(t_arg));
+	if (!(arglst = (t_arg *)ft_memalloc(sizeof(t_arg))))
+		return (NULL);
 	argtmp = arglst;
 	i = 1;
 	while (argv[i])
@@ -28,7 +29,8 @@ t_arg	*char_to_lst(char **argv)
 		argtmp->color = arg_color(argv[i]);
 		argtmp->elem = ft_strndup(argv[i], ft_strlen_chr(argv[i], '='));
 		argtmp->is_select = 0;
-		argtmp->next = (t_arg *)ft_memalloc(sizeof(t_arg));
+		if (!(argtmp->next = (t_arg *)ft_memalloc(sizeof(t_arg))))
+			return (NULL);;
 		argtmp2 = argtmp;
 		argtmp = argtmp->next;
 		i++;
@@ -49,7 +51,7 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 		buffcat(buff, tgetstr("mr", NULL));
 	buffcat(buff, (*ar)->color);
 	buffcat(buff, (*ar)->elem);
-	buffcat(buff, DEF_COLOR);
+	buffcat(buff, DEFAULT_COL);
 	buffcat(buff, tgetstr("me", NULL));
 	whcl[6]++;
 	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
@@ -95,7 +97,8 @@ int		*get_size(t_data **save_d)
 	int				*whcl;
 
 	ioctl(0, TIOCGWINSZ, &w);
-	whcl = (int *)ft_memalloc(sizeof(int) * 9);
+	if (!(whcl = (int *)ft_memalloc(sizeof(int) * 9)))
+		return (NULL);
 	whcl[0] = w.ws_col;
 	whcl[1] = w.ws_row - 1;
 	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
@@ -128,8 +131,10 @@ void	display_args(t_data *d)
 		save_d = get_data(NULL);
 	if (!save_d || !save_d->args)
 		return ;
-	buff = (char *)ft_memalloc(BUFFER_SIZE + 1);
-	whcl = get_size(&d);
+	if (!(buff = (char *)ft_memalloc(BUFFER_SIZE + 1)))
+		return ;
+	if (!(whcl = get_size(&d)))
+			return ;
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);

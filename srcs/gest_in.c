@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 12:37:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 15:35:48 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:41:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ void		user_hand(t_data **d)
 
 	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
-	tmp = (char *)ft_memalloc(7);
 	signal(SIGTSTP, &do_pause);
 	signal(SIGCONT, &do_restart);
 	(*d)->nbr_line = 0;
 	(*d)->nbr_col = 0;
 	(*d)->max_len = 0;
 	(*d)->conf_mode = 1;
+	get_data(*d);
+	if (!(tmp = (char *)ft_memalloc(7)))
+		return (print_error("malloc"));
 	i = 2;
 	while (i)
 		i = inni(d, tmp, i);

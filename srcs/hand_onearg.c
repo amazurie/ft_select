@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/05/24 13:09:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:36:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void		display_onearg(t_data *d, int num)
 		ft_putstr_fd(tgetstr("mr", NULL), tty_fd(0));
 	ft_putstr_fd(ar->color, tty_fd(0));
 	ft_putstr_fd(ar->elem, tty_fd(0));
-	ft_putstr_fd(DEF_COLOR, tty_fd(0));
+	ft_putstr_fd(DEFAULT_COL, tty_fd(0));
 	ft_putstr_fd(tgetstr("me", NULL), tty_fd(0));
 }

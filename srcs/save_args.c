@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 14:00:50 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 15:41:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:53:44 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void		do_saveload(t_data **d, t_arg **s_args, char *tmp)
 			return ;
 		if (*s_args != NULL)
 			free_args(s_args);
-		*s_args = args_cpy((*d)->args);
+		if (!(*s_args = args_cpy((*d)->args)))
+			print_errorcont("error cannot save, operation ignored");
 	}
 	else if ((tmp[0] == 114 || tmp[0] == 82) && s_args && *s_args != NULL)
 	{

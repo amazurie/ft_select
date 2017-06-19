@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/13 15:27:47 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/19 11:37:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define CONF_COL		"\e[33m"
 # define DEFAULT_COL	"\e[0m"
 # define BUFFER_SIZE	2000
-# define DEF_COLOR	"\x1b[39m"
+# define ERR_COLOR		"\e[1;31m"
 
 typedef struct		s_arg
 {
@@ -90,5 +90,6 @@ void				reset_num(t_data **d);
 void				del_arg(t_data **d, t_arg **arg, t_arg **tmp);
 int					in(t_data **d, char *tmp);
 t_arg				*save_args(t_data **d, char *tmp);
+int					print_errorcont(char *str);
 
 #endif
