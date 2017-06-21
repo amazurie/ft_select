@@ -42,6 +42,7 @@ OK_COLOR = \x1b[32;01m
 DEL_COLOR = \x1b[33m
 
 TOTAL_FILE = 82
+SIZE_BAR = 2 #reduce number to reduce bar size
 
 all: $(NAME)
 
@@ -56,9 +57,10 @@ $(NAME): $(OSRC)
 	@$(eval compteur = $(shell echo $$(($(compteur)+1))))
 	@$(eval total = $(shell echo ${compteur}*100 | bc))
 	@$(eval total = $(shell echo ${total}/$(TOTAL_FILE) | bc))
-	@$(eval bar = $(shell echo ${total}/5 | bc))
+	@$(eval bar = $(shell echo ${total}/${SIZE_BAR} | bc))
 	@echo "$(OK_COLOR)\r [ \c"
 	@for ((i = 0; i < $(bar); ++i)); do echo "=\c"; done
+	@for ((i = 0; i < $(shell echo 100/$(SIZE_BAR)-${bar} | bc); ++i)); do echo " \c"; done
 	@echo "> ] $(total)%\c"
 	@echo "$(NO_COLOR)\c"
 
