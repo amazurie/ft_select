@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 15:28:11 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/27 18:50:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/27 18:53:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int			in(t_data **d, char *tmp)
 	if ((tmp[0] == 27 || tmp[0] == 81 || tmp[0] == 113 || tmp[0] == 4)
 				&& !tmp[1])
 	{
-		if ((*d)->conf_mode == 2 && !confirm("you will quit"))
+		if (((*d)->conf_mode == 2 || (tmp[0] == 4 && (*d)->conf_mode >= 1))
+				&& !confirm("you will quit"))
 			return (1);
 		reset_term(*d);
 		exit(1);
