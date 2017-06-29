@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 14:13:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 14:15:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int			main(int ac, char **av)
 				"ft_select: bad input\nusage: /ft_select input [input...]\n");
 	if (!(name_term = getenv("TERM")))
 		name_term = "xterm";
-	if (tgetent(NULL, name_term) == ERR || tcgetattr(0, &d->oldterm) == -1)
-		disp_error("could not load TERM! specify it with: 'setenv TERM'\n");
 	if (!(d = (t_data *)ft_memalloc(sizeof(t_data))))
 		disp_error("malloc");
+	if (tgetent(NULL, name_term) == ERR || tcgetattr(0, &d->oldterm) == -1)
+		disp_error("could not load TERM! specify it with: 'setenv TERM'\n");
 	tcgetattr(0, &d->term);
 	d->term.c_lflag &= ~(ECHO | ICANON);
 	d->term.c_cc[VMIN] = 1;
