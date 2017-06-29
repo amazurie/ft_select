@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 13:56:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 14:03:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static int	check_isscreen(t_data *d, t_arg *ar)
 	ioctl(tty_fd(0), TIOCGWINSZ, &ws);
 	wcl[0] = ws.ws_row - 1;
 	wcl[1] = nbrline(d->args, ws.ws_col, &wcl[2]);
+	if (wcl[2] - 1 > ws.ws_col)
+		return (0);
 	wcl[2] = nbr_col(d->args, &wcl[1]);
 	wcl[3] = 0;
 	wcl[4] = 0;
-	if (ws.ws_col < wcl[2])
-		return (0);
 	while (wcl[3] < wcl[1])
 	{
 		if (ar->num >= d->min_line + wcl[2] * wcl[3]
