@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 12:45:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 14:58:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 
 	buffcat(buff, tgoto(tgetstr("cm", NULL), 0, 0));
 	buffcat(buff, tgetstr("cd", NULL));
-	if (whcl[2] > whcl[0])
+	if (whcl[2] - 1 > whcl[0])
 		buffcat(buff, "number of column too low");
-	if (whcl[2] > whcl[0])
+	if (whcl[2] - 1 > whcl[0])
 		return ;
 	k = whcl[3] * whcl[1];
 	i = 0;
