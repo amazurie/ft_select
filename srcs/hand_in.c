@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 15:28:11 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/27 18:53:06 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:37:54 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static int	in3(t_data **d, char *tmp)
 
 static int	in2(t_data **d, char *tmp)
 {
-	if ((tmp[0] == 127 && !tmp[1])
-			|| (tmp[0] == 27 && tmp[1] == 91
-				&& tmp[2] == 51 && tmp[3] == 126))
+	if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
 	{
 		if ((*d)->conf_mode != 2 || confirm("delete all selected argument"))
 			do_del(d);
 	}
-	else if ((tmp[0] == 68 || tmp[0] == 100) && !tmp[1])
+	else if ((tmp[0] == 127 && !tmp[1])
+			|| (tmp[0] == 27 && tmp[1] == 91
+				&& tmp[2] == 51 && tmp[3] == 126))
 		del_curr(d);
 	else if ((tmp[0] == 82 || tmp[0] == 83 || tmp[0] == 114 || tmp[0] == 115)
 			&& !tmp[1])

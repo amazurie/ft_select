@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:37:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:40:48 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_data
 {
 	struct termios	oldterm;
 	struct termios	term;
+	char			*line;
 	int				ac;
 	int				max_len;
 	int				min_line;
@@ -91,5 +92,6 @@ void				del_arg(t_data **d, t_arg **arg, t_arg **tmp);
 int					in(t_data **d, char *tmp);
 t_arg				*save_args(t_data **d, char *tmp);
 int					print_errorcont(char *str);
+void				disp_search(char *line);
 
 #endif

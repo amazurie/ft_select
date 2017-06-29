@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 12:07:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:40:51 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		winsize_changed(int sig)
 	d->nbr_col = 0;
 	d->min_line = 0;
 	display_args(d);
+	if (d->line)
+		disp_search(d->line);
 	sig = 0;
 }
 

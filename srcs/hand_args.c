@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 12:05:04 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:45:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	int		j;
 	int		k;
 
+	buffcat(buff, tgoto(tgetstr("cm", NULL), 0, 0));
+	buffcat(buff, tgetstr("cd", NULL));
+	if (whcl[2] > whcl[0])
+		buffcat(buff, "number of column too low");
+	if (whcl[2] > whcl[0])
+		return ;
 	k = whcl[3] * whcl[1];
 	i = 0;
 	whcl[6] = 0;
@@ -80,8 +86,6 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	j = whcl[5];
 	while (ar && j-- > 0)
 		ar = ar->next;
-	buffcat(buff, tgoto(tgetstr("cm", NULL), 0, 0));
-	buffcat(buff, tgetstr("cd", NULL));
 	while (ar && k-- > 0)
 	{
 		ar->pos_x = whcl[6];

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 16:01:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:56:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:40:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static t_arg	*hand_chr(t_data **d, t_arg *arg, char **line, char *tmp)
 	return (arg);
 }
 
-static void		set_search(char *line)
+void			disp_search(char *line)
 {
 	struct winsize	w;
 
@@ -77,28 +77,25 @@ static void		set_search(char *line)
 void			search(t_data **d)
 {
 	t_arg			*arg;
-	char			*line;
 	char			*tmp;
 	int				num_save;
 
 	num_save = (*d)->num_curr;
-	line = ft_strdup("/");
+	(*d)->line = ft_strdup("/");
 	if (!(tmp = (char *)ft_memalloc(7)))
 		return ;
 	arg = (*d)->args;
-	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && line[0]
+	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && (*d)->line[0]
 			&& (tmp[0] != 27 || tmp[1]) && (*d)->args)
 	{
-		set_search(line);
+		disp_search((*d)->line);
 		ft_bzero(tmp, 6);
 		read(0, tmp, 6);
-		if (!gest_searchin(d, line, tmp))
-			arg = hand_chr(d, arg, &line, tmp);
+		if (!gest_searchin(d, (*d)->line, tmp))
+			arg = hand_chr(d, arg, &((*d)->line), tmp);
 		else if (!arg)
 			arg = (*d)->args;
 	}
 	free(tmp);
-	if (!line[0])
-		(*d)->num_curr = num_save;
-	free(line);
+	free((*d)->line);
 }
