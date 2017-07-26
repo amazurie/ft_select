@@ -18,7 +18,7 @@ static int	check_isscreen(t_data *d, t_arg *ar)
 	int				wcl[5];
 
 	ioctl(tty_fd(0), TIOCGWINSZ, &ws);
-	wcl[0] = ws.ws_row - 1;
+	wcl[0] = ws.ws_row - 2;
 	wcl[1] = nbrline(d->args, ws.ws_col, &wcl[2]);
 	if (wcl[2] - 1 > ws.ws_col)
 		return (0);

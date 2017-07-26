@@ -44,7 +44,9 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 {
 	int	j;
 
-	buffcat(buff, tgoto(tgetstr("cm", NULL), (*ar)->pos_y, whcl[6]));
+	(*ar)->pos_x = whcl[6] + 1;
+	(*ar)->pos_y = whcl[7] * whcl[2];
+	buffcat(buff, tgoto(tgetstr("cm", NULL), (*ar)->pos_y, whcl[6] + 1));
 	if ((*ar)->num == curr)
 		buffcat(buff, tgetstr("us", NULL));
 	if ((*ar)->is_select)
@@ -69,30 +71,31 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 
 void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 {
-	int		i;
 	int		j;
 	int		k;
 
-	buffcat(buff, tgoto(tgetstr("cm", NULL), 0, 0));
-	buffcat(buff, tgetstr("cd", NULL));
+	buffcat(buff, tgetstr("mr", NULL));
+	buffcat(buff, tgetstr("md", NULL));
+	whcl[6] = whcl[0] - 9;
+	while (whcl[6]-- > 0)
+	{
+		if (whcl[6] == whcl[0] / 2 - 5)
+			buffcat(buff, "ft_select");
+		buffcat(buff, " ");
+	}
+	buffcat(buff, tgetstr("me", NULL));
 	if (whcl[2] - 1 > whcl[0])
 		buffcat(buff, "number of column too low");
 	if (whcl[2] - 1 > whcl[0])
 		return ;
 	k = whcl[3] * whcl[1];
-	i = 0;
 	whcl[6] = 0;
 	whcl[7] = 0;
 	j = whcl[5];
 	while (ar && j-- > 0)
 		ar = ar->next;
 	while (ar && k-- > 0)
-	{
-		ar->pos_x = whcl[6];
-		ar->pos_y = whcl[7] * whcl[2];
 		buff_arg(&ar, buff, curr, whcl);
-		i++;
-	}
 }
 
 int		*get_size(t_data **save_d)
@@ -104,7 +107,7 @@ int		*get_size(t_data **save_d)
 	if (!(whcl = (int *)ft_memalloc(sizeof(int) * 9)))
 		return (NULL);
 	whcl[0] = w.ws_col;
-	whcl[1] = w.ws_row - 1;
+	whcl[1] = w.ws_row - 2;
 	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
 	{
 		whcl[3] = nbrline((*save_d)->args, whcl[0], &whcl[2]);
@@ -139,6 +142,8 @@ void	display_args(t_data *d)
 		return ;
 	if (!(whcl = get_size(&d)))
 		return ;
+	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
+	buffcat(&buff, tgetstr("cd", NULL));
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);
