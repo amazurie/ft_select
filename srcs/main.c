@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/08/21 16:12:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/21 16:22:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static void	set_sig(void)
 
 	i = 0;
 	while (++i < 31)
-		signal(i, sighandler);
+	{
+		if (i != 28)
+			signal(i, sighandler);
+	}
 }
 
 int			main(int ac, char **av)
