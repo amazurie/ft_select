@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 14:00:50 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:53:44 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/21 10:23:12 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void		do_saveload(t_data **d, t_arg **s_args, char *tmp)
 		if ((*d)->args)
 			free_args(&(*d)->args);
 		(*d)->args = args_cpy(*s_args);
+		reset_num(d);
 	}
 }
 
