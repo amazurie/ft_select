@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 14:15:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/21 16:12:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ void		winsize_changed(int sig)
 
 static void	sighandler(int sig)
 {
-	if (sig == SIGINT)
-	{
-		reset_term(get_data(NULL));
-		exit(1);
-	}
+	reset_term(get_data(NULL));
+	exit(sig);
+}
+
+static void	set_sig(void)
+{
+	int	i;
+
+	i = 0;
+	while (++i < 31)
+		signal(i, sighandler);
 }
 
 int			main(int ac, char **av)
@@ -55,10 +61,10 @@ int			main(int ac, char **av)
 	d->term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
 		print_error(NULL);
+	set_sig();
 	signal(SIGWINCH, &winsize_changed);
 	d->args = char_to_lst(av);
 	d->ac = ac - 2;
-	signal(SIGINT, sighandler);
 	user_hand(&d);
 	return (0);
 }
