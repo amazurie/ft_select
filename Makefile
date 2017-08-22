@@ -6,13 +6,15 @@
 #    By: amazurie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/19 13:34:03 by amazurie          #+#    #+#              #
-#    Updated: 2017/06/19 13:34:17 by amazurie         ###   ########.fr        #
+#    Updated: 2017/08/22 15:39:58 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_select
 
 CC = gcc
+
+DFLAGS = -MMD
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -44,6 +46,8 @@ SRC =	$(SRC_PATH)/main.c			\
 
 OSRC = $(SRC:.c=.o)
 
+DEPS := $(SRC:.c=.d)
+
 NO_COLOR = \x1b[0m
 OK_COLOR = \x1b[32;01m
 DEL_COLOR = \x1b[33m
@@ -59,11 +63,12 @@ $(LIB):
 	@make -C $(LIB_PATH)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -I $(LIB_INC_PATH) -I $(INC_PATH) -c -o $@ $?
+	@$(CC) $(CFLAGS) $(DFLAGS) -I $(LIB_INC_PATH) -I $(INC_PATH) -c $< -o $@
 
 clean:
 	@make -C libft clean
 	@/bin/rm -f $(OSRC)
+	@/bin/rm -f $(DEPS)
 	@echo "$(DEL_COLOR)Cleaning temporary files.$(NO_COLOR)"
 
 fclean: clean
@@ -72,3 +77,5 @@ fclean: clean
 	@echo "$(DEL_COLOR)Delete $(NAME) file.$(NO_COLOR)"
 
 re: fclean all
+
+-include $(DEPS)
