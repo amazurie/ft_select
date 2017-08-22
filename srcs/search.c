@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 16:01:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 12:40:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:43:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void			search(t_data **d)
 	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && (*d)->line[0]
 			&& (tmp[0] != 27 || tmp[1]) && (*d)->args)
 	{
+		if (!tgetstr("cm", NULL))
+			display_args(*d);
 		disp_search((*d)->line);
 		ft_bzero(tmp, 6);
 		read(0, tmp, 6);

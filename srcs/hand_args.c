@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 14:58:32 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:39:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 	(*ar)->pos_x = whcl[6] + 1;
 	(*ar)->pos_y = whcl[7] * whcl[2];
 	buffcat(buff, tgoto(tgetstr("cm", NULL), (*ar)->pos_y, whcl[6] + 1));
-	if ((*ar)->num == curr)
-		buffcat(buff, tgetstr("us", NULL));
-	if ((*ar)->is_select)
-		buffcat(buff, tgetstr("mr", NULL));
+	(!tgetstr("cm", NULL)) ? buffcat(buff, " ") : 0;
+	((*ar)->num == curr) ? buffcat(buff, tgetstr("us", NULL)) : 0;
+	((*ar)->is_select) ? buffcat(buff, tgetstr("mr", NULL)) : 0;
+	((*ar)->is_select && !tgetstr("cm", NULL)) ? buffcat(buff, ">") : 0;
 	buffcat(buff, (*ar)->color);
 	buffcat(buff, (*ar)->elem);
 	buffcat(buff, DEFAULT_COL);
 	buffcat(buff, tgetstr("me", NULL));
+	((*ar)->num == curr && !tgetstr("cm", NULL)) ? buffcat(buff, "_") : 0;
 	whcl[6]++;
 	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
 		whcl[7]++;
@@ -65,8 +66,7 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 		while ((*ar) && j-- > 0)
 			(*ar) = (*ar)->next;
 	}
-	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
-		whcl[6] = 0;
+	(whcl[6] == whcl[4] || whcl[6] == whcl[1]) ? whcl[6] = 0 : 0;
 }
 
 void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
@@ -142,9 +142,13 @@ void	display_args(t_data *d)
 		return ;
 	if (!(whcl = get_size(&d)))
 		return ;
+	if (!tgetstr("cm", NULL))
+		buffcat(&buff, "\e[1;1H\e[2J");
 	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
 	buffcat(&buff, tgetstr("cd", NULL));
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
+	if (!tgetstr("cm", NULL))
+		buffcat(&buff, "\n");
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);
 	free(whcl);

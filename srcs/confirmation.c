@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 13:08:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/19 11:58:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:45:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	conf_mode(t_data **d, int mode)
 	struct winsize	w;
 	int				j;
 
+	if (!tgetstr("cm", NULL))
+		ft_putstr_fd(" ", tty_fd(0));
 	if (mode == 1)
 		(*d)->conf_mode = ((*d)->conf_mode - 1 < 0) ? 2 : (*d)->conf_mode - 1;
 	else if (mode == 2)
@@ -36,6 +38,7 @@ void	conf_mode(t_data **d, int mode)
 		ft_putstr_fd("default", tty_fd(0));
 	else if ((*d)->conf_mode == 2)
 		ft_putstr_fd("all", tty_fd(0));
+	(!tgetstr("cm", NULL)) ? ft_putstr_fd("\n", tty_fd(0)) : 0;
 }
 
 int		confirm(char *s)

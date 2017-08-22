@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 15:30:06 by amazurie          #+#    #+#             */
-/*   Updated: 2017/08/22 15:40:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/22 15:57:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ size_t	buffcat(char **buff, char *s)
 {
 	size_t	len;
 
+	if (!s)
+		return (ft_strlen(*buff));
 	len = 0;
 	if (ft_strlen(*buff) + ft_strlen(s) < BUFFER_SIZE)
 		ft_strcat(*buff, s);

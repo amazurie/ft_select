@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/06/29 14:58:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:11:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void		display_onearg(t_data *d, int num)
 {
 	t_arg			*ar;
 
+	if (!tgetstr("cm", NULL))
+		display_args(d);
 	ar = d->args;
 	while (ar && ar->num != num)
 		ar = ar->next;

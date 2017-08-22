@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 13:22:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/05/24 13:08:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:44:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,17 @@ void		gest_arrow(t_data **d, char *tmp)
 	int				num;
 
 	num = (*d)->num_curr;
-	if (tmp[2] == 65)
+	if (tmp[2] == 65 || (tmp[2] == 68 && !tgetstr("cm", NULL)))
 		(*d)->num_curr = ((*d)->num_curr == 0) ? (*d)->ac : (*d)->num_curr - 1;
-	else if (tmp[2] == 66)
+	else if (tmp[2] == 66 || (tmp[2] == 67 && !tgetstr("cm", NULL)))
 		(*d)->num_curr = ((*d)->num_curr == (*d)->ac) ?
 			(*d)->num_curr = 0 : (*d)->num_curr + 1;
 	else if (tmp[2] == 67)
 		right_arrow(d);
 	else if (tmp[2] == 68)
 		left_arrow(d);
-	display_onearg(*d, num);
+	if (tgetstr("cm", NULL) != NULL)
+		display_onearg(*d, num);
 	display_onearg(*d, (*d)->num_curr);
 }
 
