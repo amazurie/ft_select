@@ -44,21 +44,41 @@ static void	set_sig(void)
 	}
 }
 
+int			test_term(void)
+{
+	char			*name_term;
+
+//	name_term = "xterm";
+	if (tgetent(NULL, name_term) == ERR)
+	{
+		name_term = getenv("TERM");
+		if (!name_term[0] || tgetent(NULL, name_term) == ERR)
+			return (-1);
+		if (!tgetstr("cm", NULL) || !tgetstr("dl", NULL)
+			|| !tgetstr("cd", NULL) || !tgetstr("ve", NULL)
+			|| !tgetstr("te", NULL) || !tgetstr("ti", NULL)
+			|| !tgetstr("vi", NULL) || !tgetstr("us", NULL)
+			|| !tgetstr("mr", NULL) || !tgetstr("me", NULL)
+			|| !tgetstr("md", NULL))
+		{
+			print_errorcont(
+				"Conflicting TERM defined, launch with a different TERM");
+			exit(0);
+		}
+	}
+	return (1);
+}
+
 int			main(int ac, char **av)
 {
 	t_data			*d;
-	char			*name_term;
-
 	if (!av || !av[1])
 		disp_error(
 				"ft_select: bad input\nusage: /ft_select input [input...]\n");
 	if (!(d = (t_data *)ft_memalloc(sizeof(t_data))))
 		disp_error("malloc");
-	name_term = "xterm";
-	if (tgetent(NULL, name_term) == ERR)
-		name_term = getenv("TERM");
-	tgetent(NULL, name_term);
 	tcgetattr(0, &d->oldterm);
+	is_term(test_term());
 	tcgetattr(0, &d->term);
 	d->term.c_lflag &= ~(ECHO | ICANON);
 	d->term.c_cc[VMIN] = 1;

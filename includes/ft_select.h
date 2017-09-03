@@ -93,5 +93,6 @@ int					in(t_data **d, char *tmp);
 t_arg				*save_args(t_data **d, char *tmp);
 int					print_errorcont(char *str);
 void				disp_search(char *line);
+int					is_term(int is_term);
 
 #endif

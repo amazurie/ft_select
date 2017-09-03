@@ -88,7 +88,7 @@ void			search(t_data **d)
 	while ((tmp[0] != 10 || (tmp[10] == 10 && tmp[1])) && (*d)->line[0]
 			&& (tmp[0] != 27 || tmp[1]) && (*d)->args)
 	{
-		if (!tgetstr("cm", NULL))
+		if (is_term(0) < 0)
 			display_args(*d);
 		disp_search((*d)->line);
 		ft_bzero(tmp, 6);

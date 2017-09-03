@@ -24,7 +24,6 @@ void	conf_mode(t_data **d, int mode)
 	j = (ioctl(0, TIOCGWINSZ, &w) != -1) ? w.ws_col - 17 : -1;
 	if (j < 0)
 		return ;
-	(!tgetstr("cm", NULL)) ? ft_putstr_fd(" ", tty_fd(0)) : 0;
 	ft_putstr_fd(tgoto(tgetstr("cm", NULL), j, w.ws_row), tty_fd(0));
 	ft_putstr_fd(tgetstr("dl", NULL), tty_fd(0));
 	print_errorcont(NULL);
@@ -38,7 +37,7 @@ void	conf_mode(t_data **d, int mode)
 		ft_putstr_fd("default", tty_fd(0));
 	else if ((*d)->conf_mode == 2)
 		ft_putstr_fd("all", tty_fd(0));
-	(!tgetstr("cm", NULL)) ? ft_putstr_fd("\n", tty_fd(0)) : 0;
+	(is_term(0) < 0) ? ft_putstr_fd("\n", tty_fd(0)) : 0;
 }
 
 int		confirm(char *s)

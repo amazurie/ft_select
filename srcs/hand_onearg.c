@@ -43,8 +43,11 @@ void		display_onearg(t_data *d, int num)
 {
 	t_arg			*ar;
 
-	if (!tgetstr("cm", NULL))
+	if (is_term(0) < 0)
+	{
 		display_args(d);
+		return ;
+	}
 	ar = d->args;
 	while (ar && ar->num != num)
 		ar = ar->next;

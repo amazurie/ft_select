@@ -60,3 +60,12 @@ void		reset_term(t_data *d)
 	close(tty_fd(0));
 	tty_fd(-1);
 }
+
+int			is_term(int is_term)
+{
+	static int	is_sterm = 0;
+
+	if (is_term != 0)
+		is_sterm = is_term;
+	return (is_sterm);
+}

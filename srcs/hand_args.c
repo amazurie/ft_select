@@ -47,15 +47,14 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 	(*ar)->pos_x = whcl[6] + 1;
 	(*ar)->pos_y = whcl[7] * whcl[2];
 	buffcat(buff, tgoto(tgetstr("cm", NULL), (*ar)->pos_y, whcl[6] + 1));
-	(!tgetstr("cm", NULL)) ? buffcat(buff, " ") : 0;
 	((*ar)->num == curr) ? buffcat(buff, tgetstr("us", NULL)) : 0;
 	((*ar)->is_select) ? buffcat(buff, tgetstr("mr", NULL)) : 0;
-	((*ar)->is_select && !tgetstr("cm", NULL)) ? buffcat(buff, ">") : 0;
+	((*ar)->is_select && is_term(0) < 0) ? buffcat(buff, "\e[7m") : 0;
 	buffcat(buff, (*ar)->color);
 	buffcat(buff, (*ar)->elem);
 	buffcat(buff, DEFAULT_COL);
 	buffcat(buff, tgetstr("me", NULL));
-	((*ar)->num == curr && !tgetstr("cm", NULL)) ? buffcat(buff, "_") : 0;
+	((*ar)->num == curr && is_term(0) < 0) ? buffcat(buff, "_") : 0;
 	whcl[6]++;
 	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
 		whcl[7]++;
@@ -66,6 +65,7 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 		while ((*ar) && j-- > 0)
 			(*ar) = (*ar)->next;
 	}
+	(is_term(0) < 0) ? buffcat(buff, "\n") : 0;
 	(whcl[6] == whcl[4] || whcl[6] == whcl[1]) ? whcl[6] = 0 : 0;
 }
 
@@ -80,12 +80,12 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	while (whcl[6]-- > 0)
 	{
 		if (whcl[6] == whcl[0] / 2 - 5)
-			buffcat(buff, "ft_select");
-		buffcat(buff, " ");
+			buffcat(buff, "\e[7mft_select\e[0m");
+		buffcat(buff, "\e[7m \e[0m");
 	}
 	buffcat(buff, tgetstr("me", NULL));
 	if (whcl[2] - 1 > whcl[0])
-		buffcat(buff, "number of column too low");
+		buffcat(buff, "mnumber of column too low");
 	if (whcl[2] - 1 > whcl[0])
 		return ;
 	k = whcl[3] * whcl[1];
@@ -107,10 +107,11 @@ int		*get_size(t_data **save_d)
 	if (!(whcl = (int *)ft_memalloc(sizeof(int) * 9)))
 		return (NULL);
 	whcl[0] = w.ws_col;
-	whcl[1] = w.ws_row - 2;
+	whcl[1] = (is_term(0) < 0) ? w.ws_row - 3 : w.ws_row - 2;
 	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
 	{
 		whcl[3] = nbrline((*save_d)->args, whcl[0], &whcl[2]);
+		(is_term(0) < 0) ? whcl[3] = 1 : 0 ;
 		whcl[4] = nbr_col((*save_d)->args, &whcl[3]);
 		(*save_d)->max_len = whcl[2];
 		(*save_d)->nbr_line = whcl[3];
@@ -122,8 +123,7 @@ int		*get_size(t_data **save_d)
 		whcl[3] = (*save_d)->nbr_line;
 		whcl[4] = (*save_d)->nbr_col;
 	}
-	whcl[5] = check_winsize(*save_d, whcl);
-	(*save_d)->min_line = whcl[5];
+	(*save_d)->min_line = (whcl[5] = check_winsize(*save_d, whcl));
 	return (whcl);
 }
 
@@ -142,13 +142,11 @@ void	display_args(t_data *d)
 		return ;
 	if (!(whcl = get_size(&d)))
 		return ;
-	if (!tgetstr("cm", NULL))
+	if (is_term(0) < 0)
 		buffcat(&buff, "\e[1;1H\e[2J");
 	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
 	buffcat(&buff, tgetstr("cd", NULL));
 	disp_arg(save_d->args, whcl, save_d->num_curr, &buff);
-	if (!tgetstr("cm", NULL))
-		buffcat(&buff, "\n");
 	ft_putstr_fd(buff, tty_fd(0));
 	free(buff);
 	free(whcl);

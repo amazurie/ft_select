@@ -62,9 +62,9 @@ void		gest_arrow(t_data **d, char *tmp)
 	int				num;
 
 	num = (*d)->num_curr;
-	if (tmp[2] == 65 || (tmp[2] == 68 && !tgetstr("cm", NULL)))
+	if (tmp[2] == 65 || (tmp[2] == 68 && is_term(0) < 0))
 		(*d)->num_curr = ((*d)->num_curr == 0) ? (*d)->ac : (*d)->num_curr - 1;
-	else if (tmp[2] == 66 || (tmp[2] == 67 && !tgetstr("cm", NULL)))
+	else if (tmp[2] == 66 || (tmp[2] == 67 && is_term(0) < 0))
 		(*d)->num_curr = ((*d)->num_curr == (*d)->ac) ?
 			(*d)->num_curr = 0 : (*d)->num_curr + 1;
 	else if (tmp[2] == 67)
