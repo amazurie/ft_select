@@ -44,7 +44,7 @@ static void	set_sig(void)
 	}
 }
 
-int			test_term(void)
+static int	test_term(void)
 {
 	char			*name_term;
 
@@ -61,9 +61,11 @@ int			test_term(void)
 			|| !tgetstr("mr", NULL) || !tgetstr("me", NULL)
 			|| !tgetstr("md", NULL))
 		{
-			print_errorcont(
-				"Conflicting TERM defined, launch with a different TERM");
-			exit(0);
+			ft_putstr(ERR_COLOR);
+			ft_putstr("Conflicting TERM defined, unload TERM, press any key\n");
+			ft_putstr(DEFAULT_COL);
+			tgetent(NULL, "");
+			return (-2);
 		}
 	}
 	return (1);
@@ -72,9 +74,10 @@ int			test_term(void)
 int			main(int ac, char **av)
 {
 	t_data			*d;
+
 	if (!av || !av[1])
 		disp_error(
-				"ft_select: bad input\nusage: /ft_select input [input...]\n");
+			"ft_select: bad input\nusage: /ft_select input [input...]\n");
 	if (!(d = (t_data *)ft_memalloc(sizeof(t_data))))
 		disp_error("malloc");
 	tcgetattr(0, &d->oldterm);
@@ -86,6 +89,10 @@ int			main(int ac, char **av)
 	if (tcsetattr(0, TCSADRAIN, &d->term) == -1)
 		print_error(NULL);
 	set_sig();
+	if (is_term(0) == -2)
+		read(0, av[0], 7);
+	if (is_term(0) == -2)
+		is_term(-1);
 	signal(SIGWINCH, &winsize_changed);
 	d->args = char_to_lst(av);
 	d->ac = ac - 2;

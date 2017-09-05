@@ -72,6 +72,7 @@ void		user_hand(t_data **d)
 	(*d)->num_curr = 0;
 	ft_putstr_fd(tgetstr("ti", NULL), tty_fd(0));
 	ft_putstr_fd(tgetstr("vi", NULL), tty_fd(0));
+	signal(SIGWINCH, &winsize_changed);
 	signal(SIGTSTP, &do_pause);
 	signal(SIGCONT, &do_restart);
 	(*d)->nbr_line = 0;
