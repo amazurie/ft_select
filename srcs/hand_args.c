@@ -107,7 +107,7 @@ int		*get_size(t_data **save_d)
 	if (!(whcl = (int *)ft_memalloc(sizeof(int) * 9)))
 		return (NULL);
 	whcl[0] = w.ws_col;
-	whcl[1] = (is_term(0) < 0) ? w.ws_row - 3 : w.ws_row - 2;
+	whcl[1] = (w.ws_row > 2) ? w.ws_row - 2 : w.ws_row - 1;
 	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
 	{
 		whcl[3] = nbrline((*save_d)->args, whcl[0], &whcl[2]);
