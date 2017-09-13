@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/08/24 16:38:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/13 10:43:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	test_term(void)
 {
 	char			*name_term;
 
-//	name_term = "xterm";
+	name_term = "xterm";
 	if (tgetent(NULL, name_term) == ERR)
 	{
 		name_term = getenv("TERM");
@@ -62,7 +62,7 @@ static int	test_term(void)
 			|| !tgetstr("md", NULL))
 		{
 			ft_putstr(ERR_COLOR);
-			ft_putstr("Conflicting TERM defined, unload TERM, press any key\n");
+			ft_putstr("Conflicting TERM defined, on his own, press any key\n");
 			ft_putstr(DEFAULT_COL);
 			tgetent(NULL, "");
 			return (-2);

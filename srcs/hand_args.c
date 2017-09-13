@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 13:07:05 by amazurie          #+#    #+#             */
-/*   Updated: 2017/08/22 16:39:28 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/13 10:37:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		*get_size(t_data **save_d)
 	if (!(*save_d)->nbr_line || !(*save_d)->nbr_col || !(*save_d)->min_line)
 	{
 		whcl[3] = nbrline((*save_d)->args, whcl[0], &whcl[2]);
-		(is_term(0) < 0) ? whcl[3] = 1 : 0 ;
+		(is_term(0) < 0) ? whcl[3] = 1 : 0;
 		whcl[4] = nbr_col((*save_d)->args, &whcl[3]);
 		(*save_d)->max_len = whcl[2];
 		(*save_d)->nbr_line = whcl[3];
@@ -123,7 +123,7 @@ int		*get_size(t_data **save_d)
 		whcl[3] = (*save_d)->nbr_line;
 		whcl[4] = (*save_d)->nbr_col;
 	}
-	(*save_d)->min_line = (whcl[5] = check_winsize(*save_d, whcl));
+	whcl[5] = check_winsize(*save_d, whcl);
 	return (whcl);
 }
 
@@ -142,6 +142,7 @@ void	display_args(t_data *d)
 		return ;
 	if (!(whcl = get_size(&d)))
 		return ;
+	save_d->min_line = whcl[5];
 	if (is_term(0) < 0)
 		buffcat(&buff, "\e[1;1H\e[2J");
 	buffcat(&buff, tgoto(tgetstr("cm", NULL), 0, 0));
