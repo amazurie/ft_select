@@ -49,12 +49,12 @@ void	buff_arg(t_arg **ar, char **buff, int curr, int *whcl)
 	buffcat(buff, tgoto(tgetstr("cm", NULL), (*ar)->pos_y, whcl[6] + 1));
 	((*ar)->num == curr) ? buffcat(buff, tgetstr("us", NULL)) : 0;
 	((*ar)->is_select) ? buffcat(buff, tgetstr("mr", NULL)) : 0;
+	((*ar)->num == curr && is_term(0) < 0) ? buffcat(buff, "\033[4m") : 0;
 	((*ar)->is_select && is_term(0) < 0) ? buffcat(buff, "\e[7m") : 0;
 	buffcat(buff, (*ar)->color);
 	buffcat(buff, (*ar)->elem);
 	buffcat(buff, DEFAULT_COL);
 	buffcat(buff, tgetstr("me", NULL));
-	((*ar)->num == curr && is_term(0) < 0) ? buffcat(buff, "_") : 0;
 	whcl[6]++;
 	if (whcl[6] == whcl[4] || whcl[6] == whcl[1])
 		whcl[7]++;
@@ -85,7 +85,7 @@ void	disp_arg(t_arg *ar, int *whcl, int curr, char **buff)
 	}
 	buffcat(buff, tgetstr("me", NULL));
 	if (whcl[2] - 1 > whcl[0])
-		buffcat(buff, "mnumber of column too low");
+		buffcat(buff, "number of column too low");
 	if (whcl[2] - 1 > whcl[0])
 		return ;
 	k = whcl[3] * whcl[1];

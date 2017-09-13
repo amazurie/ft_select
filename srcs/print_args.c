@@ -16,18 +16,22 @@ void	print_args(t_data *d)
 {
 	t_arg	*arg;
 	char	*buff;
+	int		i;
 
 	if (d->conf_mode == 2 && !confirm("you will confirm your selection"))
 		return ;
 	arg = d->args;
 	if (!(buff = (char *)ft_memalloc(BUFF_SIZE + 1)))
 		print_error("malloc");
+	i = 1;
 	while (arg)
 	{
 		if (arg->is_select)
 		{
+			if (i != 1)
+				buffcat(&buff, " ");
 			buffcat(&buff, arg->elem);
-			buffcat(&buff, " ");
+			i = 0;
 		}
 		arg = arg->next;
 	}
