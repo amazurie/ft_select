@@ -51,7 +51,7 @@ void		display_onearg(t_data *d, int num)
 	ar = d->args;
 	while (ar && ar->num != num)
 		ar = ar->next;
-	if (!check_isscreen(d, ar))
+	if (!ar || !check_isscreen(d, ar))
 		return ;
 	ft_putstr_fd(tgoto(tgetstr("cm", NULL), ar->pos_y, ar->pos_x), tty_fd(0));
 	if (ar->num == d->num_curr)

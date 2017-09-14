@@ -32,6 +32,7 @@ static void	left_arrow(t_data **d)
 	}
 	else
 		(*d)->num_curr -= wcl[2];
+	(*d)->num_curr > (*d)->ac ? (*d)->num_curr = (*d)->ac - wcl[2] + 1 : 0;
 }
 
 static void	right_arrow(t_data **d)
