@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 11:11:21 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/13 10:43:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/14 13:57:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	test_term(void)
 	if (tgetent(NULL, name_term) == ERR)
 	{
 		name_term = getenv("TERM");
-		if (!name_term[0] || tgetent(NULL, name_term) == ERR)
+		if (!name_term || !name_term[0] || tgetent(NULL, name_term) == ERR)
 			return (-1);
 		if (!tgetstr("cm", NULL) || !tgetstr("dl", NULL)
 			|| !tgetstr("cd", NULL) || !tgetstr("ve", NULL)
