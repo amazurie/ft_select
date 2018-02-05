@@ -1,6 +1,6 @@
 # ft_select
 
-The goal for this project is to learn more about screen oriented programs using termcap/terminfo libraries in the C programming language.
+The purpose for this project is to learn more about screen oriented programs using termcap/terminfo libraries in the C programming language.
 
 Requirements (latest tested):
 - GNU make (v3.81) <br />
